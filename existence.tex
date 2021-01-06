@@ -1,0 +1,1159 @@
+%LaTeX Paper ************************************************
+% **** --------------------------------------------------------------------------------
+\documentclass[11pt]{amsart}
+%---------------------------------------------------------------------------------------
+\usepackage{graphicx,xcolor}
+\usepackage{color}
+\usepackage[outdir=./]{epstopdf}
+\usepackage[colorlinks]{hyperref}
+\usepackage{enumitem}
+%---------------------------------------------------------------------------------------
+% THEOREMS -----------------------------------------------------------------------
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{pro}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{example}[thm]{Example}
+\numberwithin{equation}{section}
+
+% MATH ------------------------------------------------------------------------------
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+\def\commentblock#1#2#3{{\rm\footnotesize\color{#1}\flushleft\vbox{\noindent\llap{#2}#3}}}
+\newcommand{\Zahra}[1] {\commentblock{blue} {{\bf Zahra}\;$|$\;} {#1}}
+
+% --------------------------------------------------------------------------------------
+\begin{document}
+	%\unitlength 1cm\begin{picture}(0,0)\put(2,1){ \scriptsize
+	%\textbf{}\end{picture}
+	
+	\title[weakly  singular kernels]{On the existence and smoothness of solution of fuzzy Volterra integral equation of the second kind with weakly singular kernels}%
+	\author[Z. Alijani]{ZAHRA ALIJANI$^*$}
+	\address{Institute of Mathematics and Statistics, University of Tartu, Estonia}%
+	\email{zahra.alijani@ut.ee}%
+	\thanks{$^\dagger$ corresponding}
+	
+	%
+	
+	\author[U. kangro]{Urve Kangro$^\dagger$}%\footnote{Corresponding author}
+	\address{Institute of mathematics and Statistics, University of Tartu, Estonia}%
+	\email{urve.kangro@ut.ee}%
+	
+%\author[B. Shiri]{Babak Shiri}%
+%\address{Neijiang Normal University, China}%
+%\email{shiri@tabrizu.ac.ir}%
+%	\author[D. Baleanu]{Dumitru Baleanu}
+%	\address{\c{C}ankaya University, Department of Mathematics, 06530
+%		Balgat, Ankara, Turkey.}%
+%	\address{Institute of Space Sciences, Magurele-Bucharest, Romania.}
+%	\email{dumitru@cankaya.edu.tr}%
+%	\thanks{$^\dagger$ corresponding}
+\subjclass[2010]{65L05, 34K06, 34K28.}
+\keywords{fuzzy integral equation, weakly singular kernel, smoothness of the solution.}
+
+%\date{}%
+%\dedicatory{}%
+%\commby{}%
+% ----------------------------------------------------------------
+\begin{abstract}
+In this paper we consider fuzzy Volterra integral equation of the second kind with weakly singular kernel. 
+ When analysing the convergence of a numerical method for a given integral equation one needs information about the smoothness of  the exact solution.
+We prove  the smoothness of the solution, assuming that the sign of kernel can change only along the horizontal and vertical lines. 
+\end{abstract}
+\maketitle
+% ----------------------------------------------------------------
+\section{introduction}
+Integral equations are equations in which an unknown function appears under an integral sign. Integral equations arise in many mathematical models of various of various real world phenomena.
+There is a relation between differential and integral equations, and some problems may be formulated either way.
+A large class of initial and boundary value problems can be transformed to Volterra or Fredholm integral equations. Theory of Volterra integral equations is thoroughly considered in the recent monograph by Brunner \cite{Brunner}.
+Weakly singular integral equations have received considerable interest in the mathematical literature, because of its applications in many fields of science such as the theory of elasticity, viscoelasticity, hydrodynamics fractional differential equations and the physical problems with heredity and memory properties \cite{Brunner,Vainikko06}.
+
+Since most Volterra integral equations can not be solved analytically,  there is an urge to using a numerical solution of these equations. More recently, numerical methods for these equations are much-studied subjects of numerous works, since analytical methods on practical problems often fail \cite{Alijani2020, brunner2004collocation, Brunner99, Kolk 2013, Kolk2009}.
+
+ In order to design real problem one needs to use   integral equations with the exact parameters. This is often  impractical in physical problems. To handle this lack of information, one way is to use uncertainty measures such as fuzzy concept (Zadeh 1965 \cite{zade1965}). Instead of using deterministic models of integral equations, we can use fuzzy integral equations, where the values of functions may be fuzzy numbers. Hence there is a need to develop mathematical models and numerical procedures that would appropriately treat general fuzzy integral equations and solve them.
+Dubois and Prade \cite{dubois1978} introduced the concept of integration of fuzzy functions. Alternative approaches were later suggested by Geotschel and Voxman \cite{goetschel1986}, Kaleva \cite{kaleva1987}, Nanda \cite{Nanda}, and others.
+
+
+A fuzzy Volterra integral equation  of the second kind with weakly
+singular kernel (FVIEW) is given by
+\begin{equation}\label{1.2}
+g(t)=f(t)+\int_{0}^{t}{K(t,s)}g(s)ds, \ \ t \in[0,T],
+\end{equation}
+where  $K\colon {D}_T\to \mathbb{R}$  is a weakly singular  kernel  with domain $D_T=\{(t,s) \colon 0\leq s < t \leq T\}$, $T\in \mathbb{R}$, $f$ is a given fuzzy function  and $g$ is an unknown fuzzy function \footnote{Throughout this paper, a fuzzy function is a map from a set of real numbers to the set of fuzzy numbers on $\mathbb{R}$.}. The kernel $K$ may have some singularities at $t=s.$
+If $f$ is a crisp function \footnote{Throughout this paper, {crisp} means non-fuzzy.} then equation (\ref{1.2}) possesses a crisp solution and if $f$ is a fuzzy function then the solution is  fuzzy. We will define weakly singular kernel in Section 2.
+\\In \cite{Alijani2020} we investigated the collocation method for solving linear fuzzy Volterra integral equations of the second kind. We approximated the solution using some basis functions with fuzzy coefficients.  We proved existence and uniqueness of solution of the approximate equation and showed that the approximate solution is also a fuzzy function (It is often ignored in papers considering numerical solution of fuzzy equations). \\
+ The main achievement of this work is to study the fuzzy Volterra integral equation \eqref{1.2} with  weakly  singular kernel. As far as we know, the fuzzy Volterra integral equation with weakly singular kernel has  been studied in \cite{Moufak} with specific kernel but our result is more general. First, we transform the fuzzy Volterra
+integral equation \eqref{1.2} with a weakly singular kernel  to a system of Volterra
+integral equations with weakly singular kernels. We obtain the existence and uniqueness of solutions based on this transformation, and then we show that the corresponding solution is a fuzzy function which satisfies equation \eqref
+{1.2}.
+When analysing the convergence of a numerical method for a given integral equation one needs information about the smoothness of  the exact solution.
+We prove  the smoothness of the solution, assuming that the sign of kernel can change only along the horizontal and vertical lines.
+The paper is organized as follows. Section 2 introduces some priliminaries about fuzzy functions which are necessary in next sections.
+In section 3 we describe the parametric and operator form of the integral equation. Section 4 consists of  exitence and uniqueness of the solution. In section 5 in order to  prove the smoothness of the solution we  first provide the smoothness results under assumptions that kernel is smooth and changes the sign.
+\section{preliminaries}
+\subsection{fuzzy function}
+\hfill\\
+In this section, we review the fundamental notions and definitions that will be used throughout the paper.
+\begin{defn}\cite{zade1965} Let $\mathbb{X}$ be a set. A fuzzy set is characterized by a function called membership function and defined as  $$A(x): \mathbb{X}\to [0,1], \ \ \ \forall x\in \mathbb{X},$$ associating each element of $\mathbb{X}$ to a real number on $[0,1]$.
+	The set of all fuzzy sets is  denoted by $\mathbb{F}\mathbb{(X)}$.
+\end{defn}
+\par
+Fuzzy numbers are particular fuzzy sets on $\mathbb{R}$ (generally on $\mathbb{R}^n,\, n\geq 1$) that are identified with some additional properties.
+\begin{defn} \cite{Diamond}                                \label{1.1.1}
+	A fuzzy number is a mapping $u :\mathbb{R}
+	\rightarrow [0, 1]$ such that
+	\begin{enumerate}
+		\setlength{\itemsep}{0pt}
+		\item
+		$u$ is normal, i.e. $\exists x_0 \in \mathbb{R} $ with $u(x_0) = 1,$
+		\item 
+		$u$ is fuzzy convex, i.e. 
+		$$u(tx + (1 - t)y) \geq \min\{u(x), u(y)\},\  \forall t \in [0, 1],\ 
+		x, y \in \mathbb{R},$$
+		\item $u$ is upper semi-continuous,
+		\item  $u$ is compactly supported, i.e. $cl\{x \in \mathbb{R} \colon  u(x) > 0\}$ is compact, where
+		$cl(A)$ denotes the closure of the set $A$.
+	\end{enumerate}
+\end{defn}
+%par Fuzzy numbers are particular fuzzy sets on $\mathbb{R}$ (generally on $\mathbb{R}^n,\, n\geq 1$) that are identified with a normal convex, upper continuous maps to $[0,1]$ with compact supports. Because a fuzzy set can be identified with a collection of its $r$-cuts, we use the following definition where this property is selected as a main one. Moreover, due to convexity and continuity, every $r$-cut of a fuzzy number is a closed interval, determined by its left and right boundary.
+The set of all fuzzy numbers is denoted by $E.$ 
+%Fuzzy numbers can also be represented in parametric form as follows.
+%\begin{definition}\label{NB}\cite{Bede}
+%A fuzzy number $u$ on $\mathbb{R}$ in parametric form is an ordered pair $u=(\underline{u},\overline{u})$ of two real functions $\underline{u},\overline{u}:[0,1]\to \mathbb{R}$, that satisfy the following requirements:
+%\begin{enumerate}
+%	\item $\underline{u}$ is a bounded monotonically increasing, left continuous on $(0, 1]$ and
+%	right continuous at $0$,
+%	\item
+%	$\overline{u}$ is a bounded monotonically decreasing, left continuous on $(0, 1]$ and
+%	right continuous at $0$,
+%	\item
+%	$\underline{u}(1)\leq \overline{u}(1).$
+%\end{enumerate}
+%\end{definition}
+
+\begin{defn}
+	For $0 < r \leq 1$, we denote
+	$[u]_r = \{x \in  \mathbb{R} \colon  u(x) \geq r\}$,
+	then $[u]_r$ will be called the $r$-cut of the fuzzy number $u$.
+	We denote  $[u]_0=\overline{ \{x\in \mathbb{R}\colon u(x)>0\}}.$ We call $[u]_0$ the support of fuzzy number $u$ and denote it by supp(u).
+	Fuzzy number $u$ is called  positive if supp\hspace{0.1cm}$(u)\subset (0,\infty)$. We denote by $ E^+,$ the space of all positive fuzzy numbers.
+\end{defn}
+The following couple of theorems \cite{goetschel1986} 
+give another representation of a fuzzy number as a pair of functions that
+satisfy some properties. The representation of first theorem is called
+the LU (lower-upper) representation or parametric form of a fuzzy number.
+\begin{thm} \cite{goetschel1986} \label{NB}
+	Let $u$ be a fuzzy
+	number and let $[u]_r=[\underline{u}(r),\overline{u}(r)]=\{x \in \mathbb{R} \colon  u(x)\geq r\}, 0 < r\leq 1$.
+	The functions $\underline{u}(r),\overline{u}(r) :
+	[0, 1] \to \mathbb{R}$, defining the endpoints of the $r$-cuts, satisfy the following
+	conditions:
+	\begin{enumerate}
+		\setlength{\itemsep}{0pt}
+		\item $\underline{u}(r)$ is a bounded monotonically increasing, left-continuous function on $(0, 1]$ and right continuous at $0$;
+		\item $\overline{u}(r)$ is a bounded monotonically decreasing, left-continuous function on $(0, 1]$ and right continuous at $0$;
+		\item $\underline{u}(1)\leq \overline{u}(1).$
+	\end{enumerate}
+\end{thm}
+The reciprocal of the LU-representation  theorem  is the Goetschel-Voxman characterization
+theorem.
+\begin{thm}
+	(Goetschel-Voxman \cite{goetschel1986})\label{recipNB} Let us consider the functions $\underline{u}(r), \overline{u}(r) :
+	[0, 1] \to \mathbb{R}$, that satisfy the following conditions:
+	\begin{enumerate}
+		\setlength{\itemsep}{0pt}
+		\item 
+		$\underline{u}(r)$ is a bounded, non-decreasing, left continuous function
+		in $(0, 1]$ and it is right continuous at $0$;
+		\item $\overline{u}(r)$  is a bounded, non-increasing, left continuous function
+		in $(0, 1]$ and it is right continuous at $0$;
+		\item 
+		$\underline{u}(1)\leq \overline{u}(1).$
+	\end{enumerate}
+	Then there is a fuzzy number $u \in  E$ that has $\underline{u}(r), \overline{u}(r)$ as endpoints of it's $r$-cuts, $u(r)$.
+\end{thm}
+For arbitrary $[u]_r = [\underline{u}(r), \overline{u}(r)], [v]_r = [\underline{v}(r), \overline{v}(r)]$ and $k \in \mathbb{R}$ we define addition and
+multiplication by $k$ as\\
+$[\underline{u+v}]_r=[\underline{u}]_r+[\underline{v}]_r,$
+$[\overline{u+v}]_r=[\overline{u}]_r+[\overline{v}]_r,$\\
+$[\underline {ku}]_r = k[\underline{u}]_r, [\overline {ku}]_r = k[\overline u]_r,\ \ \text{if} \ \ k\geq 0,$\\
+$[\overline {ku}]_r = k[\underline u]_r, [\underline {ku}]_r = k[\overline u]_r,\ \ \text{if} \ \ k< 0.$\\
+Note that $E$ is not a vector space, because $u+(-u) \not=0$ in general.
+% For $u,v\in E$ and $\lambda \in \mathbb{R}$, the sum $u+v$ and the scalar product $\lambda.A$ are defined by $ [A+B]_\alpha=[A]_\alpha+[B]_\alpha,  [\lambda.A]_\alpha=\lambda[A]_\alpha,\hspace{0.1cm}\forall \alpha\in[0,1]$ where $[A]_\alpha+[B]_\alpha$ means the usual addition of two intervals of $\mathbb{R}$ and $\lambda[A]_\alpha$ means the usual product between a scalar and subset of $\mathbb{R}.$  fuzzy number $A$ is called  positive if supp\hspace{0.1cm}$(A)\subset (0,\infty)$. We denote by $ \mathbb{R}^+_\mathcal{F},$ the space of all positive fuzzy numbers.
+%Let us denote a trapezoidal fuzzy number by the quadruple $(a, b, c, d)\in \mathbb{R}^4, a\leq b\leq c \leq d.
+% If we have $b=c,$ then the fuzzy number is called a triangular fuzzy number. Then a triplet $(a, b, c)\in \mathbb{R}^3, a\leq b\leq c$ represents a triangular fuzzy number 
+A crisp number is simply represented by $\underline u(r)=\overline u(r)=r$, $0\leq r \leq 1$. 
+Some special cases of fuzzy numbers are:
+\begin{enumerate}
+	\setlength{\itemsep}{0pt}
+	\item  trapezoidal fuzzy numbers, where $\underline u(r),\overline u(r)$ are linear functions;
+	\item  triangular fuzzy numbers, which are trapezoidal numbers with $\underline u(1)=\overline u(1)$; 
+	\item  interval numbers, where $\underline u(r),\overline u(r)$ are constants.
+\end{enumerate}
+%\begin{example}\label{intfuzzy}
+%	Consider the fuzzy number with membership function as
+%	$$
+%	u(x)=
+%	\left\{ {\begin{array}{l}
+	%	0, \hspace{0.6cm} x<0,\\
+	%	x,\hspace{0.6cm} 0\leq x < \frac{1}{2},\\
+	%	1,\hspace{0.6cm}\frac{1}{2}\leq x\leq 1,\\
+	%	-x+2,\hspace{0.6cm} 1<x<2,\\
+	%	0, \hspace{0.6cm} x\geq 2.
+	%	\end{array}} \right.
+%	$$
+%	The $r$-cuts are as follows:\\
+%	$[u]_r=[r, 2-r], 0<r<\frac{1}{2}$
+%	and $[u]_r=[\frac{1}{2}, 2-r], \frac{1}{2}\leq r<1.$
+	
+%	\begin{figure}[h!]
+%		\centering
+%		\includegraphics[scale=0.4]{fuz.eps}\\
+%		\caption{Membership function of Example \ref{intfuzzy}}
+%	\end{figure}
+%\end{example}
+Next we will define the metric $D$ in $E$.
+\begin{defn}\label{disD}
+	For arbitrary fuzzy numbers $u, v,$ we use the distance
+	$$D(u,v)=\sup_{0\leq r \leq 1} \max\{|\overline{u}(r)-\overline{v}(r)|,|\underline{u}(r)-\underline{v}(r)|\}.$$
+\end{defn}
+It is shown that $(E, D)$ is a complete metric space \cite{bede}. 
+Following Goetschel and Voxman \cite{goetschel1986} we define the integral of a fuzzy function using the Riemann integral concept.
+
+
+
+\begin{defn}\label{dft}
+	Let $f:[a,b]\rightarrow E$. For each partition $P=\{t_0,...,t_n\}$ of $[a,b]$ and for arbitrary $\xi_i\in [t_{i-1},t_i], 1\leq i \leq n $ suppose
+	$$R_P=\sum_{i=1}^n f(\xi_i)(t_i-t_{i-1}), \quad
+	\Delta:=\max\{ t_i-t_{i-1}, i=1,...,n\}.$$
+	The definite integral of $f(t)$ over $[a,b]$ is
+	$\displaystyle
+	\int_{a}^{b}f(t)dt=\lim_{\Delta\rightarrow 0}R_P$
+	provided this limit exists in metric $D$.
+\end{defn}
+If the fuzzy function $f(t)$ is continuous in the metric D, its definite integral exists and
+\begin{equation}                                              \label{nn}
+\int_{a}^{b}{f(t)}dt=\left(\int_{a}^{b}\underline f(t,r)dt, \int_{a}^{b}\overline f(t,r)dt\right),
+\end{equation}
+where $(\underline f(t,r) ,\overline f(t,r))$ is the parametric form of $f(t)$.
+
+It should be noted that the fuzzy integral can be also defined using the Lebesgue-type approach \cite{kaleva1987}. Definition of the fuzzy integral using formula (\ref{nn}) is more convenient for numerical calculations.
+
+%For vector functions $F=[f_1,f_2]^T$ and in the case of $0<\alpha< 1$, we use following norm
+%$$||F||_{m,\alpha}= \max \{ ||f_1||_{m,\alpha}, |f_2||_{m,\alpha} \}.$$
+%The following theorem is known as the characterization theorem \cite{goetschel1986} which will be used in next sections.
+%\begin{thm}{\label{vv}} 
+%	If $u \in E$ is a fuzzy number and $[u]_r$, $r \in [0,1]$ are its $r$-cuts, then:
+%	\begin{itemize}
+	%	\item[(i)]
+	%	$[u]_r$ is  a non-empty closed interval for any $r \in [0,1];$
+	%	\item[(ii)]
+	%	if $0\leq r_1\leq r_2\leq 1,$ then $[u]_{r_2}\subseteq [u]_{r_1};$
+	%	\item[(iii)]
+	%	for any sequence $r_n$ which converges from below to $r \in [0,1]$, we have
+	%	$\bigcap _{n=1}^\infty [u]_{r_n}=[u]_r;$
+	%	\item [(iv)]
+	%	for any sequence $r_n$ which converges from above to $0$,
+%		we have $ \overline{\bigcup _{n=1}^\infty [u]_{r_n}}=[u]_0.$
+%	\end{itemize}
+%\end{thm}
+\subsection{weakly singular kernel}\hfill\\
+In the literature, weak singularity of the kernel $K$ may have different definitions. We follow here the definition of \cite{lecturenote}, where it was introduced for Fredholm integral equations.
+% We are interested in kernels that are $\mathcal{C}^m$- smooth outside the diagonal which was introduced in \cite{lecturenote},  following smoothness-singularity class $S^{m,\alpha}$ of kernels.
+\begin{defn}\label{sspace}
+	For given $m \in \mathbb{N}_0$, denote by $S^{m,\alpha}=S^{m,\alpha}(D_T)$  the set of $m$ times continuously differentiable functions $K$ on $D_T$, where $D_T=\{(t,s) \colon 0\leq s < t \leq T\}$, $T\in \mathbb{R}$, that satisfy there for all $j,l \in \mathbb{N}_0,$ $ j+l \leq m$, the inequality 
+	\begin{equation}\label{sspaceine}
+	|\left(\dfrac{\partial}{\partial t}\right)^j \left(\dfrac{\partial}{\partial t}+\dfrac{\partial}{\partial s}\right)^l {K}(t,s)|\leq C_{K,m} \left\{\begin{array}{lll}
+	1&\mbox{if}&j+\alpha<0,\\
+	1+|\log(t-s)|&	\mbox{if}&j+\alpha=0,\\
+	(t-s)^{-j-\alpha}	&\mbox{if}&j+\alpha>0.
+	\end{array} \right.
+	\end{equation}
+	A kernel $K\in S^{m,\alpha}$ is called weakly singular if $\alpha <1$.
+\end{defn}
+
+For example, kernels of the type 
+\[ K(t,s)=a(t,s) (t-s)^{-\alpha}, \]
+where $a\in C^m\left(\overline{D_T}\right)$ and $\alpha <1$, $\alpha\not=0$ are weakly singular and belong to $S^{m,\alpha}$. For $\alpha=0$ and $a\in C^m\left(\overline{D_T}\right)$ the kernel \[ K(t,s)=a(t,s) \log (t-s) \]
+belongs to $S^{m,0}$. In fact, $ C^m\left(\overline{D_T}\right)\subset S^{m,\alpha}\left(\overline{D_T}\right)$, but usually one does not call smooth kernels weakly singular.
+
+To describe the smoothness of the solution of \eqref{1.2} we need the following space of functions.
+\begin{defn}\cite{lecturenote}
+	For $m \in \mathbb{N}_0$, $\alpha<1,$ denote by   $\mathcal{C}^{m,\alpha}(0,T]$ the space of functions $v \in  \mathcal{C}^{m}(0,T],$  that satisfy the inequalities
+	\begin{equation} \label{main ineq}
+	|v^{(i)}(t)|\leq c \left\{\begin{array}{lll}
+	1&\mbox{if}&i<1-\alpha,\\
+	1+|\log(t)|&\mbox{if}&i=1-\alpha,\\
+	t^{1-\alpha-i}&\mbox{if}&i>1-\alpha,
+	\end{array} \right.
+	\end{equation}
+	where $c=c(v),$ for all $t\in (0,T]$ and $i=0,\ldots,m.$
+\end{defn}
+For $\alpha\in \mathbb{R}$  define the weight function
+\begin{equation}\label{weight}
+|\omega_{\alpha}(t)|=\left\{\begin{array}{lll}
+1&\mbox{if}&\alpha<0,\\
+(1+|\log(t)|)^{-1}&\mbox{if}&\alpha=0,\\
+t^{\alpha}&\mbox{if}&\alpha>0.
+\end{array} \right.
+\end{equation}
+Then $\mathcal{C}^{m,\alpha}(0,T],$ equipped with the norm
+%$$||x||_{m,\alpha}:=\sum_{k=0}^m\sup_{0<t\leq T} \omega_{k-1+\alpha}(t)|x^{(k)}(t)|$$
+%is a Banach space. Thus, for $0<\alpha<1$ we have
+$$||v||_{m,\alpha}:=\sum_{k=0}^m\sup_{0<t\leq T} \omega _{k-1+\alpha}(t)|v^{(k)}(t)|,$$
+becomes a Banach space and for $m\geq 1$
+\begin{equation}\label{inequality}
+\mathcal{C}^{m}[0,T]\subset \mathcal{C}^{m,\alpha}(0,T]\subset \mathcal{C}[0,T].\end{equation}
+For $m=0 $ we have $\mathcal{C}^{0,\alpha}(0,T]= \mathcal{BC}(0,T]$, i.e. the space of bounded continuous functions on $(0,T]$.
+
+\section{Parametric and operator form of the integral equation}
+Let $(\underline f(t,r),\overline f(t,r))$ and  $(\underline g(t,r),\overline g(t,r)),$ $(t,r)\in[0,T]\times [0,1]$  be parametric forms of $f(t)$ and $g(t)$. Then equation (\ref{1.2}) can be rewritten as a system of Volterra integral equations:
+\begin{equation}\label{19}
+\left\{ \begin{array}{l} \displaystyle \underline g(t,r)=\underline f(t,r)+\int_{0}^{t}({K_+(t,s)}\underline g(s,r)-{K_-(t,s)}\overline g(s,r)ds),\\
+\\
+\displaystyle \overline g(t,r)=\overline f(t,r)+\int_{0}^{t}({K_+(t,s)}\overline g(s,r)-{K_-(t,s)}\underline g(s,r)ds),
+\end{array} \right. \end{equation}
+where
+\begin{equation*}
+K_+(t,s)=\left\{\begin{array}{ll}
+K(t,s) &\mbox{if} \ \  K(t,s)  \geq 0,\\
+0 & \mbox{otherwise}, \end{array}\right.
+\end{equation*}
+and
+\begin{equation*} 	
+K_-(t,s)=\left\{\begin{array}{ll}
+-	K(t,s) &\mbox{if} \ \  K(t,s)\leq 0,\\
+0, & \text{otherwise}. \end{array}\right.
+\end{equation*}
+
+
+We  solve system  (\ref{19}) provided it has a solution.
+We define the operators $\mathcal{K}_{\alpha_+},\mathcal{K}_{\alpha_-} : \mathcal{C}[0,T]\to \mathcal{C}[0,T]$ by
+$$(\mathcal{K}_{\alpha_+}y)(t)=\int_{0}^{t} {K_+(t,s)}y(s)ds,$$
+$$ (\mathcal{K}_{\alpha_-}y)(t)=\int_{0}^{t} {K_-(t,s)}y(s)ds.$$
+Then we can rewrite system  (\ref{19}) as
+\begin{equation}\label{Eq32}
+\left\{ \begin{array}{l}  \underline{g}=\underline{f}+\mathcal{K}_{\alpha_+}\underline{g}-\mathcal{K}_{\alpha_-}\overline{g},\\
+\overline{g}=\overline{f}+\mathcal{K}_{\alpha_+}\overline{g}-\mathcal{K}_{\alpha_-}\underline{g}.
+\end{array} \right.
+\end{equation}
+We can also write  this system as
+\begin{equation}\label{SFuzzy1}
+G=F+\mathcal{K} G,
+\end{equation}
+where $G=[g_1,g_2]^T$, $g_1=\underline{g}$, $g_2=\overline{g}$,  $F=[f_1,f_2]^T$, $f_1=\underline{f}$, $f_2=\overline{f}$ and
+\begin{equation}\label{K}
+\mathcal{K}=\left(
+\begin{array}{cc}
+\mathcal{K}_{\alpha_+} & -\mathcal{K}_{\alpha_-} \\
+-\mathcal{K}_{\alpha_-} & \mathcal{K}_{\alpha_+} \\
+\end{array}
+\right).
+\end{equation}
+We also use the notation
+\begin{equation}\label{operator}
+\mathcal{K}G=\int_0^t {\mathbf{K}(t,s)G(s,r)}ds,
+\end{equation}
+where $$\mathbf{K}(t,s)= \left(
+\begin{array}{cc}
+K_+(t,s) & -K_-(t,s) \\
+-K_-(t,s) & K_+(t,s)\\
+\end{array}
+\right).$$
+We call the vector $G$ a fuzzy function if $(g_1, g_2)$ is a fuzzy function.\\
+
+
+\section{Existence, uniqueness and smoothness of the solution}\label{sec4}
+\subsection{Existence and uniqueness of the solution}\hfill\\
+%There are two types of analysis for the existence of a unique solution of a weakly singular integral equation. An analysis based on functional analysis, see Pedas et. al \cite{Vainikko06} and analysis based on the resolvent kernel, see the work of H. Brunner and the references of \cite{brunner2004collocation}. Our method is a mix of both approaches.  We define matrix norm by  \color{blue} $$||\bold{K}||= \sup_{||F||_0=1}  ||\bold{K} F||_{0}.$$ 
+%\color{black}
+
+%Consider the following iteration
+%\begin{equation}\label{S31}
+%G_n=F+\mathcal{K} G_{n-1}
+%\end{equation}
+%with $G_1=F.$ This iteration can be written as
+%$$G_n(t,r)=F(t)+\int_0^t \sum_{i=1}^{n-1} H_i(t,s,\alpha) F(s,r)ds$$
+%where
+%\begin{equation}
+%\begin{split}
+%H_1(t,s,\alpha)&=\frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}},\\
+%H_n(t,s,\alpha)&=\int_s^t H_1(t,\tau,\alpha)H_{n-1}(\tau,s,\alpha)d\tau.
+%\end{split}
+%\end{equation}
+%Setting $\Phi_1(t,s,\alpha):=\mathbf{K}(t,s),$  defining $\Phi_n$ by
+%\begin{equation}\label{Defphi}
+%\Phi_n(t,s,\alpha):=\int_0^1 \frac{\mathbf{K}(t,(t-s)z+s)\Phi_{n-1}((t-s)z+s,s,\alpha)}{(1-z)^{\alpha}z^{(n-1)(\alpha-1)+1}}dz
+%\end{equation}
+%for $n\in \mathbb{N},$ and by induction we can write
+%$$H_n(t,s,\alpha)=(t-s)^{n-1-n\alpha}\Phi_n(t,s,\alpha).$$
+
+%
+%$$=(t-s)^{(n-1)(1-\alpha)-\alpha}\Phi_n(t,s,\alpha)$$
+%where
+%Let $K$ be bounded by $\widehat{K},$ and introduce $$\Psi_n(t,s,\alpha)=(t-s)^{(n-1)(1-\alpha)}\Phi_n(t,s,\alpha).$$
+%We note that
+
+%$$\|\mathbf{K}\|_{\infty}\leq 2\widehat{K}$$
+
+%and
+%$$\|\mathbf{K}^n\|_{\infty}\leq (2\overline{K})^2$$
+%\begin{equation}
+%\begin{split}
+%\|\Phi_2(t,s,\alpha)\|_{\infty}&\leq (2\widehat{K})^2\int_0^1 \frac{1}{(1-z)^{\alpha}z^{\alpha}}dz\\
+%&\leq (2\widehat{K})^2B(1-\alpha,1-\alpha)\\
+%&=(2\widehat{K})^2\frac{\Gamma(1-\alpha)^2}{\Gamma(2(1-\alpha))}
+%\end{split}
+%\end{equation}
+%where $B$ is the Beta function. Similarly, by induction
+%we could prove that
+%$$\|\Psi_n(t,s,\alpha)\|_{\infty}\leq (2\mathbf{\bar K})^nT^{(n-1)(1-\alpha)}\frac{\Gamma(1-\alpha)^n}{\Gamma(n(1-\alpha))},$$  where $\mathbf {\bar K}= \max \{\left|  \mathbf K(t,s)\right| ; (t,s) \in D_T\},$
+%\color{black}
+%which show
+%\begin{equation}\label{Seri1}
+%\Psi(t,s,\alpha)=\sum_{n=1}^\infty \Psi_n(t,s,\alpha)
+%\end{equation}
+%is uniformly convergence. We call the $\Psi(t,s,\alpha)$ the resolvent kernel.
+% and hence multiplying by
+%$(t-s)^{-\alpha},$ the series
+% $$\Phi(t,s,\alpha):=\sum_{n=1}^\infty \Phi_n(t,s,\alpha)$$
+% is well defined.
+
+%Let  $K\in\mathcal{C}(\bar{D}_T),$ then $\Phi_n(t,s,\alpha)\in(\mathcal{C}(\bar{D}_T))^{2\times2}$ and hence $\Psi_n(t,s,\alpha)\in (\mathcal{C}(\bar{D}_T))^{2\times2}.$  By the  uniform convergence property of the series  \eqref{Seri1}, we conclude that
+%$\Psi(t,s,\alpha)\in (\mathcal{C}(\bar{D}_T))^{2\times2}.$ 
+%Taking into account that  $$H_n(t,s,\alpha)=\frac{\Psi_n(t,s,\alpha)}{(t-s)^{\alpha}}$$
+%we have
+% $$G_n(t,r)=F(t,r)+\int_0^t \frac{\sum_{i=1}^{n} \Psi_i(t,s,\alpha)}{(t-s)^{\alpha}} F(s,r)ds.$$
+%Letting $n
+%\rightarrow\infty,$
+%and considering the uniform convergence of the series \eqref
+%{Seri1}, we obtain
+%\begin{equation}\label{Eq55}
+%G(t,r)=F(t,r)+\int_0^t \frac{\Psi(t,s,\alpha)}{(t-s)^{\alpha}} F(s,r)ds
+% \end{equation}
+
+%\begin{theorem}\label{4.1}
+%If $\mathbf{K}\in (\mathcal{C}^m(\bar{D}_T))^{2\times2}.$ Then, $\Phi_n\in(\mathcal{C}^m(D_T))^{2\times2}$ and hence $\Psi\in(\mathcal{C}^m(D_T))^{2\times2}\cap(\mathcal{C}(\bar{D}_T))^{2\times2}.$
+%\end{theorem}
+%\begin{rem}	\label{4.1}
+%By continuity of $\Psi(t,s,\alpha)$ we could conclude that $G$ is also continuous. But, we could not provide the regularity of the $G$ on $(\mathcal{C}^m[0,T])^2.$ The right derivatives of $G_n$ and hence $G$ does not exist on $t=0,$ with respect to $t.$ Therefore, we may consider the regularity of $G$ on the space
+%$(\mathcal{C}^m(0,T])^2\cap(\mathcal{C}[0,T])^2,$ 
+%\color{red} or
+%  $(\mathcal{C}^{m,\alpha}(0,T])^2.$
+%Also, we note that
+%$$\mathcal{C}^{m,\alpha}(0,T]\subset \mathcal{C}^m(0,T]\cap\mathcal{C}[0,T]$$
+%for $0 < \alpha < 1,$ and $m\in \mathbb{N}.$
+%\end{rem}
+
+To prove existence of solutions we recall some results for weakly singular integral operators. For $k\in S^{m,\alpha}$, define the Volterra integral operator $H$ by 
+\[ Hu(t)=\int_{0}^{t} k(t,s)u(s)ds, \ \  t\in [0,T],\]
+%The following theorem is essential in the smoothness considerations for the solutions of weakly singular Volterra integral equations
+%\[ u(x)=\int_{0}^{x} k(x,y)u(y)dy+f(x), 0 \leq x \leq T,\]
+Then the following compactness result is true (see \cite{lecturenote}).  %and we can extend it to the system of fuzzy equations  in theorem \ref{MainReg}.
+\begin{thm}
+	Let  $k(x,y) \in S^{m,\alpha},$ $ m\geq 0,$ $ \alpha <1$. Then the Volterra integral operator $H$ maps $\mathcal{C}^{m.\alpha}(0,T]$ into itself and $H\colon\mathcal{C}^{m,\alpha}(0,T] \rightarrow \mathcal{C}^{m,\alpha}(0,T]$ is compact. Moreover, $H\colon\mathcal \mathcal{L}^{\infty}(0,T) \rightarrow \mathcal{C}(0,T]$ is compact.
+	%\begin{proof}
+	%	A technical formulation of what was proved. First, taking a function $u \in \mathcal{C}^{m, \alpha}(0,1)$, make sure that $Tu \in \mathcal{C}^{m,\alpha}$ or equivalently, $Tu \in \mathcal{C}^m(0,1)$. Second, prove that the operator $\omega_{i+\alpha-1} D^iTu: \mathcal{C}^{m,\alpha}(0,1) \rightarrow B\mathcal{C}(0,1), i=0,...,m,$ (where $B\mathcal{C}(0,1)$ is a Banach space consisting of all bounded continuous function $u:(0,1)\rightarrow \mathbb{R}$) are  compact. Then for a given bounded sequence
+	% $(u_n)_{n \in \mathbb{N}} \subset \mathcal{C}^{m,\alpha}(0,1)$, the sequence $(\omega_{i+\alpha-1}D^iTu), i=0,...,m,$ are relatively compact in $B\mathcal{C}(0,1)$, and extracting convergent subsequences from the preceding subsequences, first for $j=0,$ etc. Then arrive to subsequence determined by an infinite set $N' \subset \mathbb{N}$ such that all $(\omega_{i+\alpha-1}D^iTu_n)_{n \in N'}, i=0,...,m,$ converges uniformly in $(0,1)$, or equivalently, the sequence $(Tu_n)_{n \in N'}$ converges in $\mathcal{C}^{m, \alpha}(0,1)$ that means the compactness of $T:\mathcal{C}^{m,\alpha}(0,1)\rightarrow \mathcal{C}^{m,\alpha}(0,1)$.
+	
+	%	\end{proof}
+\end{thm}
+Next we expand the previous  result for the system of equations.
+\begin{thm}  \label{MainReg}
+	Let   $K\in S^{m, \alpha},$ $ m \geq 0,$ $\alpha <1$. Then the matrix Volterra integral operator $\mathcal{K}$ defined by %$ \mathcal{K}\left( 
+	%\begin{array}{cc}
+	%\underline{g}  \\
+	%\overline{g}\\
+	%\end{array}
+	%\right) (t)= \int_{0} ^{t} \mathbf{K}(t,s) \left( 
+	%\begin{array}{cc}
+	%\underline{g}  \\
+	%\overline{g}\\
+	%\end{array}
+	%\right)(s)ds$
+	\eqref{K} is a compact operator $\mathcal{K}\colon (\mathcal{L}^{\infty}(0,T))^2 \rightarrow (\mathcal{C}(0,T])^2$, hence also a compact operator in $\mathcal (\mathcal{L}^{\infty}(0,T))^2$ and in $ (\mathcal{C}(0,T])^2$.
+	\begin{proof}
+		Since  $\mathcal{K}$ is a matrix operator with elements $\mathcal{K}_{\alpha+}$ and $\mathcal{K}_{\alpha-}$
+		%	\[\mathcal{K}\left(\begin{array}{cc} g_1\\g_2 \end{array}\right)(t)=
+		%	\left(
+		%	\begin{array}{cc}
+		%\int_{0}^t	K_+(t,s) g_1(s)ds- \int_{0}^t K_-(t,s) g_2(s)ds \\
+		%\int_{0}^t	-K_-(t,s) g_1(s)ds + \int_{0}^t K_+(t,s) g_2(s)ds\\
+		%	\end{array}
+		%	\right)\]
+		and the integral operators $\mathcal{K}_{\alpha+}$ and $\mathcal{K}_{\alpha-}$ are compact from $\mathcal{L}^{\infty}(0,T)$ to $ \mathcal{C}(0,T]$, the operator $\mathcal{K}\colon (\mathcal{L}^{\infty}(0,T))^2 \rightarrow (\mathcal{C}(0,T])^2$ is also compact.
+	\end{proof}
+\end{thm}
+%Now we are ready to present the basic result about the existence and uniqueness  of the solution to weakly singular integral equations. 
+%\label{Gronwall}
+
+%To prove uniqueness of the solution, we need a generalisation of Gronwall's inequality (Lemma 1.3.13 of \cite{Brunner}).
+
+%\begin{lem}\label{Tm31}
+%	Suppose that $q\in\mathcal{C}([0,T])$ is  a non-decreasing function and $q(t)\geq 0$ for all $t\in [0,T].$ Let the non-negative continuous function $z$ satisfy$$z(t)\leq q(t)+M \int_0^t\frac{ (t-s)^{\alpha-1}}{\Gamma(\alpha)}z(s)ds,\ \ t\in [0,T]$$
+%	for some $M>0$ and $0< \alpha <1.$ Then
+	$$z(t)\leq E_{\alpha}(M t^{\alpha})q(t),$$
+%	where  $E_{\alpha}$ is the one-parameter Mittag-Leffler function  \cite{Mittag1905} defined by  
+%	$$E_{\alpha}(z)=\sum_{k=0}^{\infty}\frac{z^k}{\Gamma( \alpha k+1)}, \ \ z \in \mathbb{C}, \alpha>0.$$
+%\end{lem}
+
+To prove uniqueness of the solution, we use Gronwall's inequality and its generalization (Lemmas 1.2.17 and 1.3.13 of \cite{Brunner}).
+
+\begin{lem}\label{negative case}
+	Suppose that $q\in\mathcal{C}([0,T])$ is  a non-decreasing function and $q(t)\geq 0$ for all $t\in [0,T].$ Let the non-negative continuous function $z$ satisfy$$z(t)\leq q(t)+ \int_0^t M z(s)ds,\quad  t \in [0, T]$$
+	for some $M>0$ and $\beta <0.$ Then 
+	$$z(t)\leq q(t)+ \int _0^t M q(s) \exp(M(t-s))ds  \quad \forall t \in [0,T].$$	
+	If $q$ is non-decreasing on $[0,T]$, the inequality reduces to 
+	$$z(t)\leq  \exp(Mt) q(t) \quad  \forall t \in [0,T].$$		
+\end{lem}
+
+\begin{lem}\label{Tm31}
+	Suppose that $q\in\mathcal{C}([0,T])$ is  a non-decreasing function and $q(t)\geq 0$ for all $t\in [0,T].$ Let the non-negative continuous function $z$ satisfy$$z(t)\leq q(t)+M \int_0^t\frac{ (t-s)^{\beta-1}}{\Gamma(\beta)}z(s)ds,\ \ t\in [0,T]$$
+	for some $M>0$ and $0< \beta <1.$ Then
+	$$z(t)\leq E_{\beta}(M t^{\beta})q(t),$$
+	where  $E_{\beta}$ is the one-parameter Mittag-Leffler function  \cite{Mittag1905} defined by  
+	$$E_{\beta}(z)=\sum_{k=0}^{\infty}\frac{z^k}{\Gamma( \beta k+1)}, \ \ z \in \mathbb{C}, \beta>0.$$
+\end{lem}
+Next we prove the uniqueness of the trivial solution.
+\begin{lem}
+	Suppose that $K \in S^{m,\alpha}$, $m \geq 0,$ $\alpha<1$ and $f=\left( 
+	\begin{array}{cc}
+	0  \\
+	0\\
+	\end{array}
+	\right) $. Then equation  (\ref{SFuzzy1}) has only the trivial solution in   $ (\mathcal{L}^\infty (0,T))^2.$
+\end{lem}
+\begin{proof}
+	Suppose that $G$  is a solution of (\ref{SFuzzy1}) in $(\mathcal{L}^\infty(0,T))^2$.  Since $\mathcal{K}$ maps $(\mathcal{L}^\infty(0,T))^2$ into $(\mathcal{C}(0,T))^2$, we have $G\in (\mathcal{C}(0,T))^2$. By defining   
+	$$|[g_1(t),g_2(t)]^T|:=\max\{|g_1(t)|,|g_2(t)|\},$$ we  have
+	\begin{equation}
+	|G(t,r)|\leq  \int _{0}^t{|\mathbf{K}(G(s,r)|}ds \leq
+	C_{K}\left\{\begin{array}{lll}
+	\displaystyle \int_{0}^t |G(s,r)|\,ds&\mbox{if}& \alpha<0,\\
+	\displaystyle \int_{0}^t |G(s,r)|( 1+|\log(t-s)|)\,ds&	\mbox{if}&\alpha=0,\\
+	\displaystyle \int_{0}^t |G(s,r)| (t-s)^{-\alpha}ds	&\mbox{if}&\alpha>0.
+	\end{array} \right.
+	%C_{K}\int_{0}^t (t-s)^{-\alpha}|G(s,r)|ds. \\
+	\end{equation}
+	
+	%By 
+	%fixing $r$ and taking max-norm from both sides of System \eqref{Eq512}
+	%	\begin{equation}
+	%	\begin{split}
+	%	\max_{i \in \{1,2\}}|g_i(t,r)-z_i(t,r)|&\leq \int_0^t {|\mathbf{K}(G(s,r)-Z(s,r))|}ds\\
+	% &\leq \mathbf{\bar K} \int_0^t \frac{|(G(s,r)-Z(s,r))|_{2}}{(t-s)^{\alpha}}ds.
+	%	\end{split}
+	%	\end{equation}
+	
+	If $\alpha<0$ then Lemma \ref{negative case} gives 
+	\begin{equation}  \label{Gzero}
+	|G(t,r)| \leq 0, \quad t\in[0,T],\ r\in [0,1].
+	\end{equation}
+	
+	If $\alpha=0$ then for any $\beta\in (0,1)$ there exists $M>0$ such that $$1+|\log(t-s)|\leq \frac{M}{(t-s)^{\beta}} \text{ for } 0\leq s<t\leq T.$$
+	Now Lemma \ref{Tm31} gives \eqref{Gzero}.
+	
+	If $0<\alpha<1$ we use Lemma \ref{Tm31} with $\beta=1-\alpha$ to get \eqref{Gzero}.
+	
+	Hence in all cases we get that equation  (\ref{SFuzzy1}) has only the trivial solution in   $ (\mathcal{L}^\infty (0,T))^2.$
+	%	Suppose that  $\beta=1-\alpha$. If  $0<\alpha <1$ by using  Lemma \ref{Tm31},   if  $\alpha<0$ by using  Lemma \ref{negative case} and if $\alpha=0$ then for some constant $M$  we have
+	%	$1+|\log(t-s)|\leq \frac{M}{(t-s)^{\beta}}, \quad 0<\beta<1.$ Therefore 
+	%	we get
+	%	$|G(t,r)| \leq 0, \ t\in[0,T]$ and since   $r$ is arbitrary, the  statement holds for all $r\in[0,1].$	
+\end{proof}
+
+Now we can prove existence and uniqueness of solution of \eqref{SFuzzy1}.
+
+\begin{thm} \label{unique thm}
+	Suppose that $K\in S^{m,\alpha}$, $m \geq 0,$ $\alpha<1$ and $F \in (\mathcal{C}[0,T])^2$. Then equation  (\ref{SFuzzy1}) has a unique solution  $G$ in $(\mathcal{L}^{\infty}(0, T))^2$ and $G \in (\mathcal{C}[0,T])^2.$
+	\begin{proof}	
+		Since $\mathcal{C}[0,T]\subset\mathcal{L}^\infty(0,T)$,  uniqueness in $(\mathcal{L}^{\infty}(0,T))^2$ implies uniqueness in $(\mathcal{C}[0,T])^2 $.
+		Hence  $N(I-\mathcal{K})=\{0\}$, where $I$ is a identity matrix and  $N(I-\mathcal{K})$ is the null-space of the operator $I-\mathcal{K}$ in $(\mathcal{C}[0,T])^2 $.
+		Now by Theorem \ref{MainReg}, the operator $\mathcal{K}$  is compact in $(\mathcal{C}[0,T])^2$ and by Fredholm Alternative  Theorem, equation (\ref{SFuzzy1}) has a solution in $(\mathcal{C}[0,T])^2$ which is unique in $(\mathcal{L}^\infty(0,T))^2$.
+		%Since $K:(\mathcal{L}^{\infty}(0,T))^2\rightarrow (\mathcal{C}(0,T])^2$, any solution from $(\mathcal{L}^{\infty}(0,T))^2$ of homogeneous equation is in $(\mathcal{C}(0,T])^2$ and in $(\mathcal{C}(0,T])^2$ this solution is trivial.
+		%Furthermore the operator $I-\mathcal{K}$ is invertible in $(\mathcal{L}^{\infty}(0, T))^2.$ 
+	\end{proof}
+\end{thm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Resolvent kernel}
+% The properties of resolvent kernel $\Psi(t,s,\alpha)$ don't depend on $r.$ A fuzzy integral equations with weakly singular kernel  has resolvent kernel of scalar type.
+%By writing
+% \begin{equation*}
+% \begin{split}
+% H(t,s,\alpha)&=\sum_{n=1}^\infty H_n(t,s,\alpha)=H_1(t,s,\alpha)+\sum_{n=2}^\infty H_n(t,s,\alpha)\\
+% &=\frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}}+ \int_s^t H_1(t,\tau,\alpha)\sum_{n=2}^\infty H_{n-1}(\tau,s,\alpha)d\tau
+% \end{split}
+% \end{equation*}
+%and using $\Psi(t,s,\alpha)=\sum_{n=1}^\infty \Psi_n(t,s,\alpha),$ we can obtain a system of Volterra equations of the form
+% \begin{equation}\label{Eq510}
+% \frac{\Psi(t,s,\alpha)}{(t-s)^{\alpha}}=\frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}}+ \int_s^t \frac{\mathbf{K}(t,\tau)\Psi(\tau,s,\alpha)}{(t-\tau)^{\alpha}(\tau-s)^{\alpha}}d\tau.
+% \end{equation}
+% By changing variables of integration, we obtain
+%$$\frac{\Psi(t,s,\alpha)}{(t-s)^{\alpha}}=\frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}}+ (t-s)^{1-2\alpha}\int_0^1 \frac{\mathbf{K}(t,(t-s)z+s)\Psi((t-s)z+s,s,\alpha)}{(1-z)^{\alpha}z^{\alpha}}dz$$
+%and hence the resolvent kernel satisfies a  Fredholm integral equation of the form
+%$$\Psi(t,s,\alpha)=\mathbf{K}(t,s)+ (t-s)^{1-\alpha}\int_0^1 \frac{\mathbf{K}(t,(t-s)z+s)\Psi((t-s)z+s,s,\alpha)}{(1-z)^{\alpha}z^{\alpha}}dz.$$
+%Now, we can state the following  Remark and Theorem:
+
+%\begin{theorem}\label{Thm53}
+%\color{blue} Assume that  $F(.,r)\in (\mathcal{C}^{m,\alpha}(0,T])^{2}$   and the elements of  $\mathbf{K}\in (S^{m, \alpha}( {D}_T))^{2}.$  Then, the system \eqref{SFuzzy1} has a unique solution  $G(.,r)\in(\mathcal{C}^{m,\alpha}(0,T])^{2}.$
+%The regularity with respect to $r$ is  exactly the same as the regularity of $F$ with respect to $r.$
+%Furthermore, by fixing $r$  $$\mathcal{K}:(\mathcal{C}^{m,\alpha}(0,T])^{2}\rightarrow (\mathcal{C}^{m,\alpha}(0,T])^{2}$$ is a bounded and bijective operator and  $(I-\mathcal{K})^{-1}:(\mathcal{C}^{m,\alpha}(0,T])^{2}\rightarrow (\mathcal{C}^{m,\alpha}(0,T])^{2}$  is  a bounded operator.
+%\end{theorem}
+%\begin{proof}
+% First, we show that the vector function $G$ obtained by \eqref{Eq55}, satisfies \eqref{SFuzzy1}. Multiplying \eqref{Eq55} by $\frac{\mathbf{K}(t,\tau)}{(t-\tau)^{\alpha}}$
+%and integrating over the interval $[0,t],$
+% we obtain
+% \begin{equation*}
+% \begin{split}
+%\int_0^t\frac{\mathbf{K}(t,\tau)}{(t-\tau)^{\alpha}}G(\tau,r)d\tau=&\int_0^t\frac{\mathbf{K}(t,\tau)}{(t-\tau)^{\alpha}}F(\tau)d\tau\\
+%&+\int_0^t\frac{\mathbf{K}(t,\tau)}{(t-\tau)^{\alpha}}\int_0^\tau% \frac{\Psi(\tau,s,\alpha)}{(\tau-s)^{\alpha}} F(s,r)dsd\tau\\
+%=&\int_0^t\frac{\mathbf{K}(t,\tau)}{(t-\tau)^{\alpha}}F(\tau)d\tau\\
+%&+\int_0^t \int_s^t \frac{\mathbf{K}(t,\tau)}{(t-\tau)^{\alpha}} \frac{\Psi(\tau,s,\alpha)}{(\tau-s)^{\alpha}}d\tau F(s,r)ds
+%\end{split}
+%\end{equation*}
+%and from \eqref{Eq510}, we have
+%\begin{equation}\label{Eq511}
+% \begin{split}
+%\int_0^t\frac{\mathbf{K}(t,\tau)}{(t-\tau)^{\alpha}}G(\tau,r)d\tau
+%=&\int_0^t\frac{\mathbf{K}(t,\tau)}{(t-\tau)^{\alpha}}F(\tau)d\tau\\
+%&+\int_0^t \left(\frac{\Psi(t,s,\alpha)}{(t-s)^{\alpha}}-\frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}}\right) F(s,r)ds\\
+%&=\int_0^t \frac{\Psi(t,s,\alpha)}{(t-s)^{\alpha}} F(s,r)ds.
+%\end{split}
+%\end{equation}
+%By substituting right hand side of Equation \eqref{Eq511} into Equation \eqref{Eq55}, $G$ satisfies system  \eqref{SFuzzy1}, which completes the proof of existence of a solution. 
+
+
+%The assertion on the regularity of the solution with respect to $r$ can be concluded directly by \eqref{Eq55}. Finally, by the above discussion and the equation \eqref{Eq56a} and Theorem \ref{MainReg} we can write
+%$$(I-\mathcal{K})^{-1}F(.,r)=F(t,r)+\mathcal{P}(F)(t,r)$$
+%and hence   $(I-\mathcal{K})^{-1}$ is a bounded operator.
+%\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Smoothness of the solution}
+To prove the smoothness of the solution, smoothness of the kernel $K$ is not enough, because in our system of integral equations \eqref{19} the kernels are $K_+$ and $K_-$. If $K$ does not change sign in $D_T$, then the smoothness of $K_+$ and $K_-$ is the same as the smoothness of $K$, but in general the derivatives of $K_+$ and $K_-$ are discontinuous at lines where $K$ changes sign. We first provide the smoothness results under assumptions that $K_+$ and $K_-$ are smooth.
+
+\begin{thm}  \label{smooth}
+	Let   $K_+,K_- \in S^{m, \alpha},$ $ m \geq 1,$ $\alpha <1$. Then the matrix Volterra integral operator $\mathcal{K}$ %defined by \eqref{K}
+	%maps ($\mathcal{C}^{m,\alpha}(0,T])^2$ into itself and $\mathcal{K}$
+	is compact in $(\mathcal{C}^{m,\alpha}(0,T])^2$. If $F \in (\mathcal{C}^{m,\alpha}(0,T])^2$ then equation  (\ref{SFuzzy1}) has a unique solution  $G \in (\mathcal{C}^{m,\alpha}(0,T])^2.$
+	\begin{proof}
+		Since under the assumptions	the integral operators $\mathcal{K}_{\alpha,+}$ and $\mathcal{K}_{\alpha,-}$ are compact
+		in $\mathcal{C}^{m,\alpha}(0,T])$, then $\mathcal{K}$ is compact in $(\mathcal{C}^{m,\alpha}(0,T])^2$.
+		
+		Rest of the proof is similar to the proof of Theorem \ref{unique thm}.	
+		% Since $\mathcal{C}^{m,\alpha}(0,T]\subset\mathcal{L}^\infty(0,T)$,  uniqueness in $(\mathcal{L}^{\infty}(0,T))^2$ implies uniqueness in $(\mathcal{C}^{m,\alpha}(0,T])^2 $.
+		%Hence  $N(I-\mathcal{K})=\{0\}$, where $I$ is a identity matrix and  $N(I-\mathcal{K})$ is the null-space of the operator $I-\mathcal{K}$ in $(\mathcal{C}^{m,\alpha}(0,T])^2 $.
+		% Now by Theorem \ref{MainReg}, the operator $\mathcal{K}$  is compact in $(\mathcal{C}^{m,\alpha}(0,T])^2$ and by Fredholm Alternative  Theorem, equation (\ref{SFuzzy1}) has a solution in $(\mathcal{C}^{m,\alpha}(0,T])^2$ which is unique in $(\mathcal{L}^\infty(0,T))^2$.
+		%Since $K:(\mathcal{L}^{\infty}(0,T))^2\rightarrow (\mathcal{C}(0,T])^2$, any solution from $(\mathcal{L}^{\infty}(0,T))^2$ of homogeneous equation is in $(\mathcal{C}(0,T])^2$ and in $(\mathcal{C}(0,T])^2$ this solution is trivial.
+		%Furthermore the operator $I-\mathcal{K}$ is invertible in $(\mathcal{L}^{\infty}(0, T))^2.$ 
+	\end{proof}
+\end{thm}
+
+
+The next proposition about smoothness of $K_+$ and $K_-$ is straightforward. 
+\begin{pro}\label{regularity}
+	%The regularity of the solution can be obtained by regularity of the kernel $\bold{K}$. Moreover,  the \color{black} regularity of $\mathbf{K}$ depends on the regularity of $K_+$ and $K_-.$ Generally the derivatives of $K_+, K_-$ are not continuous when the sign of $K$ is changing. It is straightforward to show that following statements hold:
+	% \begin{itemize}
+	%   \item
+	If $K\in \mathcal{C}({D}_T),$ then $K_+,K_-\in \mathcal{C}({D}_T).$
+	%   \item
+	 %If $K\in \mathcal{C}^m({D}_T)$ and $\Gamma \cap {D}_T  \subseteq \{(t,t):t\in[0,T]\},$ then $K_+\in \mathcal{C}^m({D}_T)$ and $K_-\in \mathcal{C}^m({D}_T).$
+	%   \item 
+	If $K\in S^{m,\alpha}$  and for each $(t^*,s^*)\in\{(t,s) \in D_T \colon K(t,s)=0\}$ and $|j+l|\leq m,$ $\dfrac{\partial^{j+l}}{\partial t^j\partial s^l}K(t^*,s^*)=0,$ then $K_+,K_-\in S^{m,\alpha}.$
+	%\end{itemize}
+\end{pro}
+
+However, the assumptions of this proposition are very restrictive, especially if $m$ is large. In general $K_+$ and $K_-$ have discontinuous first derivatives, so we have to consider weakly singular kernels with discontinuous derivatives. Usually the sign of the kernel $K$ changes along some lines in $D_T$. Under general configuration of the lines of sign change the smoothness results for weakly singular kernels are very complicated. For smooth kernels some results of smoothness of solution were provided in previous paper \cite{Alijani2020}. Here we provide some results for the case when the lines of sign change can only be vertical and/or horizontal lines.
+
+Suppose the kernel changes sign along the vertical and/or horizontal lines $s=a_i$ and/or $t=a_i$, $i=1,...,n$, $0< a_1<a_2<...<a_n<T$. Denote  $$D_{ \{a_1,...,a_n\} }=D_T \setminus \cup_{i=1}^n\big(\{s=a_i\}\cup \{t=a_i\}\big).$$
+Define $S^{m,\alpha}(D_{ \{a_1,...,a_n\} })$ as the collection of $m$ times continuously differentiable functions $K$ on $D_{ \{a_1,...,a_n\} }$ that satisfy inequality (\ref{sspaceine}) for  all $j, l \in \{0\} \cup \mathbb{N}, j+l\leq m$ and $(t,s)\in D_{ \{a_1,...,a_n\}}$.
+
+Without loss of generality we can assume there is only one vertical and/or horizontal line of sign change of $K$. Denote $d= a_1$ and   
+$D_d=D_T\setminus (\{s=d\}\cup\{t=d\})$. We recall some definitions  and theorems from \cite{Pedasreg}, where similar results were obtained for weakly singular Fredholm integral equations. For $\alpha\in \mathbb{R}$, define the following weight functions on $(0,T)$:
+\begin{equation}\label{weightinterval}
+|\omega^{(0,T)}_{\alpha}(t)|=\left\{\begin{array}{lll}
+1&\mbox{if}&\alpha<0,\\
+(1+|\log(\rho_{(0,T)}|)^{-1}&\mbox{if}&\alpha=0,\\
+\rho_{(0,T)}(t)^{\alpha}&\mbox{if}&\alpha>0,
+\end{array} \right.
+\end{equation}
+where $\rho_{(0,T)}=\min\{t, T-t\}$ is the distance from $t\in(0,T)$ to the boundary of the interval $(0,T).$
+Let  $\mathcal{G}_d=(0, T)\setminus \{d\}, 0<d<T$. Introduce a cutting function $e \in \mathcal{C}[0, T]$  such that $0\leq e(t) \leq 1$ for $0\leq t \leq T, e(t)=1$ in the vicinity of $0$ and $T$, and $e(t)=0$ in the vicinity of $d$.
+In order to characterize the growth rates of the derivatives of the function $u(t)$ as $t\to d$, Pedas et al. \cite{Pedasreg} introduced also the weight functions
+\begin{equation}\label{weight2}
+|\omega^{(d)}_{\alpha}(t)|=\left\{\begin{array}{lll}
+1&\mbox{if}&\alpha<0,\\
+(1+|\log(\rho_d)|)^{-1}&\mbox{if}&\alpha=0,\\
+\rho_d(t)^{\alpha}&\mbox{if}&\alpha>0,
+\end{array} \right.
+\end{equation}
+where $t \in \mathcal{G}_d$ and $\rho_d=|t-d|.$
+For $m, p \in \mathbb{N}$, $p\leq m$, $\alpha \in \mathbb{R}$, $\alpha<1$, denote by $\mathcal{C}^{m, \alpha, p}(\mathcal{G}_d) $ the Banach space of functions $g \in \mathcal{C}^m (\mathcal{G}_d) \cap \mathcal{C}^p(0,T)$ such that 
+\begin{multline}\label{norm pedas}
+\|u\|_{m,\alpha, p}=\sum_{j=0}^m \sup _{t \in \mathcal{G}_d } e(t) \omega^{(0,T)}_ {j+\alpha-1}(t)|u^{(j)}(t)| +
+\\ \sum _{j=0}^m \sup _{t \in \mathcal{G}_d} (1-e(t)) \omega^d_{j+\alpha-1-p}(t) |u^{(j)}(t)|<\infty.
+\end{multline}
+%Clearly,
+%\begin{equation}\label{inequalitysecond}
+%{C}^{m}(a, b)\subset {C}^{m,\alpha,p}(\mathcal{G}_d)\subset {C}^{m,\alpha}(\mathcal{G}_d), m, p \in \mathbb{N}, p \leq m, \alpha <1.
+%\end{equation} And these embedding are bounded.
+
+%Now the main result of compactness is formulated as bellow.
+%\begin{theorem}\label{regulary2}
+%Let $ K \in S^{m, \alpha}$ and the kernel changes sign along the vertical and/or horizontal lines $s=a_i$ and/or $t=a_i, \ \ i=1,...,n, 0< a_1<a_2<...<a_n<T$. Then, $K_+, K_- \in (S^{m,\alpha}(D_{ \{a_1,...,a_n\} }) \cap C(D_{ \{a_1,...,a_n\} })$. Then integral operator $\mathcal{K}\left( 
+%\begin{array}{cc}
+%\underline{g}  \\
+%\overline{g}\\
+%\end{array}
+%\right) (t): (\prod_{i=0}^{n} \mathcal{C}^{m,\alpha}(a_i,a_{i+1}))^2 \to  (\prod_{i=0}^{n} \mathcal{C}^{m,\alpha}(a_i,a_{i+1}))^2$ is compact.
+%\end{theorem}
+%\begin{proof}
+We can consider the Volterra integral equation as a special case of Fredholm integral equation if we extend the kernel above the diagonal by zero. Therefore we can use the theorems about the smoothness of solution from \cite{Pedasreg}. 
+%By $\mathcal{C}^m(a, b).$
+%we denote the set of $m$ times continuously differentiable functions $u$ on $(a,b)$ that satisfy the inequalities (\ref{main ineq}) and (\ref{weight}) and $t$ will be replaced by $\rho_{0,T}(t)=\min\{t, T-t\}.$
+
+
+%For all  $t \in (d,T]$, since there is no singular point inside of $(0,d]$ we may apply $\frac {\partial}{\partial t}$ under the integral sign.
+%\begin{equation}\label{int}
+%(\frac{d}{dt})^m (L_K v (t))= \int _{0}^{d} (\frac {\partial}{\partial t})^m K_-(t,s) v(s) ds
+%\end{equation}
+% Let us multiply both side of (\ref{int}) by the weight function that is defined in (\ref{weight}). Then we have
+%\begin{equation}\label{weight derivative}
+%  \omega_{m+\alpha-1}(t-d) D^m[(L_K v)|_{(d,T]}]= L(v|_{(0,d]})  
+%\end{equation}
+%where $D=\frac{d}{dt}$ is the differentiation operator and $L$ is defined by
+%\begin{equation} \label{difop}
+%   (L v)(t)=\omega_{m+\alpha-1}(t-d)\int_{0}^{d}(\frac{\partial}{\partial t})^m K_-(t,s)v(s)ds, \ \ t \in (d,T].
+%\end{equation}
+%Note that in (\ref{weight derivative})
+%\begin{equation}
+%   \sup_{0< s< d} \omega _{m+\alpha-1}(s)|_{(v|_{(0,d)})^{(k)}(s)}|\leq \|v|_{(0,d)}\|_{\mathcal{C}^{m,\alpha}(0,d)}, \ \ k=1,...,m.
+%\end{equation}
+
+
+%Now the proof of compactness of $L_K$ can be reduced to the study of mapping properties of $L$. Taking into account that the compactness of the embedding $\mathcal{C}^{m,\alpha}(0,d) \subset \mathcal{C}[0,d]$, we observe that for compactness of $L_K$ in $\mathcal{C}^{m,\alpha}(0,d] \to \mathcal{C}^{m,\alpha}(d,T]$, it is sufficient to establish that 
+%\begin{equation}
+%   L:\mathcal{BC}(0,d] \to \mathcal{BC}(d,T],
+%\end{equation} 
+%is bounded, where $\mathcal{BC}(a,b)$ is the Banach space of bounded continuous function $u$ on the open interval $(a,b)$ equipped with the norm $\|u\|_{\mathcal{BC}(a,b)}= \sup _{a<t<b}|u(t)|.$ Let $v \in \mathcal{BC}(d,T], t \in (d,T].$ Then (\ref{weight}),  Definition \ref{sspace} and (\ref{difop}) yield 
+
+%$$
+%    |(L v)(t)|\leq c \omega_{m+\alpha-1}(t-d)\int_{0}^{d}
+%\left\{ \begin{array}{l} \displaystyle 1, \ \ \quad{if} \ \  m+\alpha<0\\
+%\displaystyle  1+\log|t-s|, \ \ \quad{if} \ \  m+\alpha=0, \\
+%\displaystyle |t-s|^{-\alpha-m}, \ \ \quad{if} \ \ m+\alpha>0 
+%\end{array}\right\}  ds \|v\|_{\mathcal{BC}(0, d]} 
+%$$
+%$$\leq c_1 \omega _{m+\alpha-1}(t-d)\bigg [\left\{ \begin{array}{l} \displaystyle 1, \ \ \quad{if} \ \  m+\alpha-1<0\\
+%\displaystyle  1+\log |t|, \ \ \quad{if} \ \  m+\alpha-1=0, \\
+%\displaystyle |t|^{-\alpha-m+1}, \ \ \quad{if} \ \ m+\alpha-1>0 
+%\end{array}\right\}$$
+%$$+\left\{ \begin{array}{l} \displaystyle 1, \ \ \quad{if} \ \  m+\alpha-1<0\\
+%\displaystyle  1+\log |t-d|, \ \ \quad{if} \ \  m+\alpha-1=0, \\
+%\displaystyle |t-{d}|^{-\alpha-m+1}, \ \ \quad{if} \ \ m+\alpha-1>0 
+%\end{array}\right\} \bigg]\|v\|_{\mathcal{BC}(0,d]}$$
+%$$ \leq c_2 \|v\|_{\mathcal{BC}(0,d]}, \ \ d<t\leq T.$$
+%Since first part in right side is bounded and the singularity of second part  disappears by multiplication in weight function, therefore operator $L$ is bounded.
+%\end{proof}
+
+
+
+%Let us consider some important kernels that have jumps in their derivatives.
+%\begin{theorem}
+% Let K satisfy one of the following conditions  
+%\begin{enumerate}[label=(\roman*)]
+%	\item	$K(t,s)=(t-a)^{2\iota+1}h(t,s),$ with  $\iota\geq 1$ or $(h(a,s)=0)$.
+%	\item $K(t,s)=(s-a)^{2\iota+1}h(t,s),$ with $h(a,a)=0$
+%	\item $K(t,s)=(t-\tau(s))^{2\iota+1}h(t,s),$
+%	\item $K(t,s)=(S(t)-s)^{2\iota+1} h(t,s).$
+%	\end{enumerate}
+%where, $S(t)$ and $\tau(s)$ are known functions and $\iota=\mathbb{N}_0,$ $a>0$ is a constant. Also $\tau$ and $S$ are known functions. Also,  $h(t,s)$ is a known function that does not change sign and has the regularity as much as desire. Let  $\underline{f}(.,r),\overline{f}(.,r)\in  \mathbb{C}^1(D_T).$ Then $\underline{g}(.,r),\overline{g}(.,r)\in  \mathbb{C}^1(D_T).$
+%\end{theorem}
+
+
+%\begin{rem}\label{4.5}
+%Needless to say that for the case with even power, the sign of $K$ does not change and does not contain new information.
+%\end{rem}
+%	\begin{figure}
+%	\includegraphics[width=6cm]{1.jpg}
+%	\includegraphics[width=6cm]{2.jpg}\\
+%	(a) \hspace{4cm} (b)\\
+%	\includegraphics[width=7cm]{4n.jpg}
+%	\includegraphics[width=4cm]{3n.jpg}\\
+%	(c) \hspace{4cm} (d)\\
+%	\caption{The some important kernels that have jumps in their derivatives(a) case (i) (b) case (ii) (c) case (iii) (d) case (vi)}\label{Fig0}
+%	\end{figure}
+%\begin{proof}
+%In the following study, without lose of the generality, we assume $h(t,s)$ is positive.
+%\begin{itemize}
+%	\item Case (i): In this case, we have
+%\end{itemize}
+% \begin{equation*}
+%	K_+(t,s)=\left\{\begin{array}{ll}
+%	0, & t< a,\\
+%	(t-a)^{2\iota+1}h(t,s), & t>a
+%	, \end{array}\right.
+%\end{equation*}
+%and
+%\begin{equation*} 	
+%	K_-(t,s)=\left\{\begin{array}{ll}
+%		-(t-a)^{2\iota+1}h(t,s), & t<a,\\
+%		0, & t>a, \end{array}\right.
+%\end{equation*}
+% (see Figure \ref{Fig0}(a)).
+%	By Remark \ref{4.1} $\underline {g},$ $\overline{g},$ $\underline {g}_n$ and $\overline{g}_n$ all belong to $\mathbb{C}^{m,\alpha}(0,\delta]$ where $0<\delta<a$ is a positive number, if $F(.,r)\in (\mathbb{C}^m(0,T])^{2}$ or $F(.,r)\in (\mathbb{C}^{m,\alpha}(0,T])^{2}.$ Now, by an induction on $n$ we prove that $\frac{\partial{\underline {g}}_n}{\partial t}$ and $\frac{\partial{\overline{g}}_n}{\partial t}$ for $n\in\mathbb{N}$ belong to $\mathbb{C}^m[\delta, T].$ For $n=1,$ it is trivial since $G_1=F.$ Let it true for $n$ and we prove it for $n+1.$
+%Using \eqref{Eq32}, we have
+%\begin{equation*}
+%\underline{g}_{n+1}=\underline{f}+	\left\{\begin{array}{ll}
+%\int_{0}^{t}\frac{(t-a)^{2\iota+1}h(t,s)\overline{g}_{n}(s,r)}{(t-s)^{\alpha}}ds, & t< a,\\
+%	\int_{0}^{t}\frac{(t-a)^{2\iota+1} h(t,s)\underline{g}_{n}(s,r)}{(t-s)^{\alpha}}ds.
+% & t>a	, \end{array}\right.
+%\end{equation*}
+%Changing the variables by $z=\frac{s}{t}$, we obtain
+%\begin{equation}\label{4.15}
+%	\underline{g}_{n+1}=\underline{f}+ t^{1-\alpha}	\left\{\begin{array}{ll}
+%	(t-a)^{2\iota+1}	\int_{0}^{1}\frac{h(t,tz)\overline{g}_{n}(tz,r)}{(1-z)^{\alpha}}dz, & t< a,\\
+%	(t-a)^{2\iota+1}	\int_{0}^{1}\frac{ h(t,tz)\underline{g}_{n}(tz)}{(1-z)^{\alpha}}dz,
+%	& t>a. \end{array}\right.
+%	\end{equation}
+%Therefore, by differentiating (\ref{4.15}) and using Leibniz's rule, we have
+%\begin{eqnarray}\label{4.16}
+%\frac{\partial{\underline {g}_{n+1}}}{\partial t}	=\frac{\partial{\underline {f}}}{\partial t}
+%+ ((t-a)^{2\iota+1}t^{1-\alpha})'
+%\left\{\begin{array}{ll}
+%	\int_{0}^{1}\frac{h(t,tz)\overline{g}_{n}(tz,r)}{(1-z)^{\alpha}}dz, & t< a,\\
+%	\int_{0}^{1}\frac{ h(t,tz)\underline{g}_{n}(tz,r)}{(1-z)^{\alpha}}dz.
+%	& t>a	, \end{array}\right.&&
+%\nonumber\\
+%+(t^{1-\alpha}(t-a)^{2\iota+1})\left\{\begin{array}{ll}
+%	\int_{0}^{1}\frac{\frac{\partial}{\partial t}(h(t,tz)\overline{g}_{n}(tz,r))} {(1-z)^{\alpha}}dz, & t< a,\\
+%	\int_{0}^{1}\frac{\frac{\partial}{\partial t}( h(t,tz)\underline{g}_{n}(tz,r))}{(1-z)^{\alpha}}dz.
+%	& t>a	, \end{array}\right.
+%\end{eqnarray}
+%Taking limit as $t \rightarrow a$ from (\ref{4.16}), we conclude that
+%\begin{equation}\label{4.17}
+%\lim_{t\rightarrow a^+}\frac{\partial \underline{g}_{n+1}}{\partial t}=\lim_{t\rightarrow a^+}\frac{\partial \underline f}{\partial t}+(t^{1-\alpha}(t-a)^{2\iota+1})' {\Big|_{t= a}}\int_{0}^{1}\frac {h(a,az)\overline{g}_{n}(az,r))}{(1-z)^{\alpha}}dz,
+%\end{equation}
+%and
+%\begin{equation}\label{4.19}
+%\lim_{t\rightarrow a^-}\frac{\partial \underline{g}_{n+1}}{\partial t}=\lim_{t\rightarrow a^-}\frac{\partial \underline f}{\partial t}+(t^{1-\alpha}(t-a)^{2\iota+1})' {\Big|_{t= a}}\int_{0}^{1}\frac {h(a,az)\underline{g}_{n}(az,r))}{(1-z)^{\alpha}}dz.
+%\end{equation}
+% For having continuous derivative at point $t=a,$ by \eqref{4.17} and \eqref{4.19}, we  must have $\iota\geq 1$ or $(h(a,s)=0)$.\\
+% In the following we recall a well known result about the differentiation operator.
+%\begin{lem} Let $v_n \in \mathbb{C}^1(0,1)$ and $v_n \to v$, $v'_n\to w$ uniformly on every closed subinterval $[\delta, 1-\delta]$, $\delta>0.$ Then $v \in \mathbb{C}^1(0,1)$ and $v'=w.$
+%\end{lem}
+
+
+%Now in our case since $G_n'$ exists we have 
+%$$G_{n}(s,r)=G_{n}(0,r)+\int_0^sG'_{n}(z,r)dz$$
+%%and therefore
+%\begin{equation}
+%\begin{split}
+%   G_{n+1}'(t) & =F'(t)+\dfrac{d}{dt}\int_0^t \frac{\mathbf{K}(t,s)G_{n}(s,r)}{(t-s)^{\alpha}}ds \\
+%    & =F'(t)+\dfrac{d}{dt}\int_0^t \frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}}dsG_{n}(0,r)+\dfrac{d}{dt}\int_0^t\int_z^t \frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}}ds G'_{n}(z,r)dz
+%\end{split}
+%\end{equation}
+%noting that $$\mathbf{L}(t,z):=\int_0^1\frac{k(t,(t-z)u+z)}{(1-u)^\alpha}du\in \mathbb{C}^{2\times 2}(D_T),$$ we obtain
+%$$\int_z^t \frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}}ds=(t-z)^{1-\alpha}\mathbf{L}(t,z)$$
+%Finally, by definition of derivative we have
+%\begin{equation*}
+%\begin{split}
+%   \dfrac{d}{dt}&\int_0^t (t-z)^{1-\alpha}\mathbf{L}(t,z)G'_{n}(z,r)dz=\lim_{h\to 0}\frac{\int_t^{t+h}(t+h-z)^{1-\alpha}\mathbf{L}(t+h,z)G'_{n}(z,r)dz}{h}\\
+%   &+\lim_{h\to 0}\frac{\int_0^{t}((t+h-z)^{1-\alpha}\mathbf{L}(t+h,z)-(t-z)^{1-\alpha}\mathbf{h}(t,z))G'_{n}(z,r)dz}{h}\\
+%  &=\int_0^{t}\dfrac{d}{dt}((t-z)^{1-\alpha}\mathbf{L}(t,z))G'_{n}(z,r)dz
+%\end{split}
+%\end{equation*}
+%We note that $\dfrac{d}{dt}((t-z)^{1-\alpha}\mathbf{L}(t,z))$ exists by conditions of case (i) and is a kernel with weak singularity of order $\alpha.$ Therefore, with a similar arguments of previous sections
+%$$G_{n+1}'(t)=F'(t)+\dfrac{d}{dt}\int_0^t \frac{\mathbf{K}(t,s)}{(t-s)^{\alpha}}dsG_{n}(0,r)+\int_0^t\dfrac{d}{dt}((t-z)^{1-\alpha}\mathbf{L}(t,z)) G'_{n}(z,r)dz $$
+%$G'_{n}$ converges uniformly.
+
+%\end{proof}
+%	\begin{itemize}
+%	\item Case (ii): In this case, we have
+%%	\end{itemize}
+%%	  $$K(t,s)=(s-a)^{2\iota+1}h(t,s)$$
+%and
+%%	K_+(t,s)=\left\{\begin{array}{ll}
+%	0, & s< a,\\
+%	(s-a)^{2\iota+1}h(t,s), & s>a
+%	, \end{array}\right.
+%\end{equation*}
+% and
+% \begin{equation*} 	
+%	K_-(t,s)=\left\{\begin{array}{ll}
+%	-(s-a)^{2\iota+1}h(t,s), & s<a,\\
+%% \end{equation*}
+% Hence, using \eqref{Eq32}, we have
+%\begin{equation}\label{4.199}
+%	\underline{g}=\underline{f}+	\left\{\begin{array}{ll}
+%	\int_{0}^{t}\frac{(s-a)^{2\iota+1}h(t,s)\overline{g}(s)}{(t-s)^{\alpha}}ds, & t< a,\\
+%	\int_{0}^{a}\frac{(s-a)^{2\iota+1} h(t,s)\overline{g}(s)}{(t-s)^{\alpha}}ds+	\int_{a}^{t}\frac{(s-a)^{2\iota+1}h(t,s)\underline{g}(s)}{(t-s)^{\alpha}}ds.
+%% \end{equation}
+% Changing the variables by $z=\frac{s}{t}$, we obtain
+% \begin{equation}\label{4.20}
+% \underline{g}=\underline{f}+ t^{1-\alpha}	\left\{\begin{array}{ll}
+%	\int_{0}^{1}\frac{(tz-a)^{2\iota+1}h(t,tz)\overline{g}(tz,r)}{(1-z)^{\alpha}}dz, & t< a,\\
+%	\int_{0}^{\frac{a}{t}} \frac{(tz-a)^{2n+1}h(t,tz)\overline{g}(tz)}{(1-z)^{\alpha}}dz+	\int_{\frac{a}{t}}^{1} \frac{(tz-a)^{2\iota+1}h(t,tz)\underline{g}(tz)}{(1-z)^{\alpha}}dz
+% & t>a	. \end{array}\right.
+% \end{equation}
+%%  \begin{eqnarray}\label{4.21}
+%% \int_{0}^{1}\frac{(tz-a)^{2\iota+1}h(t,tz)\overline{g}(tz,r)}{(1-z)^{\alpha}}dz, & t< a,\\
+% \int_{0}^{\frac{a}{t}} \frac{(tz-a)^{2\iota+1}h(t,tz)\overline{g}(tz,r)}{(1-z)^{\alpha}}dz+	\\\int_{\frac{a}{t}}^{1} \frac{(tz-a)^{2\iota+1}h(t,tz)\underline{g}(tz,r)}{(1-z)^{\alpha}}dz
+% & t>a. \end{array}\right.&&
+% \nonumber\\
+%+t^{1-\alpha}	\left\{\begin{array}{ll}
+% \int_{0}^{1}\frac{\frac{\partial}{\partial t}(tz-a)^{2\iota+1}h(t,tz)\overline{g}(tz,r)}{(1-z)^{\alpha}}dz, & t< a,\\
+%\int_{0}^{\frac{a}{t}} \frac{\frac{\partial }{\partial t}(tz-a)^{2\iota+1}h(t,tz)\overline{g}(tz,r)}{(1-z)^{\alpha}}dz+\\	\int_{\frac{a}{t}}^{1} \frac{\frac{\partial }{\partial t}(tz-a)^{2\iota+1}h(t,tz)\underline{g}(tz,r)}{(1-z)^{\alpha}}dz
+% & t>a.
+% \end{array}\right.\nonumber
+%\end{eqnarray}
+%And it is clear that $\lim_{t\rightarrow a^+}\frac{\partial \underline g}{\partial t}= \lim_{t\rightarrow a^-}\frac{\partial \underline g}{\partial t}.$
+% The result of this case is completely surprise since without continuity of the kernel and extra conditions like what we obtained in case (i), the solution is continuous. Similarly, only by assumption $h(a,a)=0$,  we have
+% $\lim_{t\rightarrow a^+}\frac{\partial^2 \underline g}{\partial t^2}= \lim_{t\rightarrow a^-}\frac{\partial^2 \underline g}{\partial t^2}.$
+%\begin{itemize}
+%	\item Case (iii)
+%\end{itemize}
+%	Suppose $A_t=\{s\geq 0: \ \tau(s)=t, \ \tau(s)>s\}$ is a finite set. Let $s_1,\cdots,s_n\in A_t$ and $s_1<s_2<\cdots<s_n,$ where $n=0,1,\cdots,$ depends on $t,$ (see Figure \ref{Fig0}(c)).  Let us suppose $A_t\neq \phi$ for some $t\in[0,T],$ else the kernel does not change the sign.
+%	$$t_1=inf\{t\in[0,T]: A_t\neq \phi\}$$
+%%It is obvious that for $t\in[0,t_1],$ the kernel $k$ is always negative and for $t\in[t_2,T],$ the kernel $k$ is always positive.  In this case, we have
+%\begin{equation}
+%\frac{{\partial \underline{g}  }}{{\partial t  }} = \frac{{\partial \underline{f} }}{{\partial t}} + \frac{\partial }{{\partial t}}\left\{ \begin{array}{ll}
+% \int_0^t \frac{(t-\tau(s))^{2\iota+1}h(t,s)\underline{g}(s,r)}{(t-s)^\alpha}ds,& t \in [0,t_1], \\
+% \int_0^{s_1} \frac{(t-\tau(s))^{2\iota+1}h(t,s)\underline{g}(s,r)}{(t-s)^\alpha}ds & t \in [t_1,t_2], \\
+% +  \int_{s_1}^{s_2} \frac{(t-\tau(s))^{2\iota+1}h(t,s)\overline{g}(s,r)}{(t-s)^\alpha}ds \\
+% + \cdots \\
+% + \int_{s_n}^{t} \frac{(t-\tau(s))^{2\iota+1}h(t,s)\left\{ \begin{array}{l}
+%\underline{g}(s,r)\ if \  \iota = even \\
+% \overline {g}(s,r)\  if  \ \iota = odd \\
+% \end{array} \right.}{(t-s)^\alpha}ds,\\
+%  \int_0^{t} \frac{(t-\tau(s))^{2\iota+1}h(t,s)\overline{g}(s,r)}{(t-s)^\alpha}ds, & t \in [t_2,T]. \\
+% \end{array} \right.
+%\end{equation}
+% Suppose that there is a unique $z_1$ and $z_2$ in $[0,T]$ such that
+%	$\tau(z_1)=t_1$ and $\tau(z_2)=t_2,$ respectively.
+% We investigate the regularity on extrema points $z_1$ and $z_2.$ A similar arguments holds on other extrema on $[t_1,t_2]$.
+% Let $t\rightarrow t_1.$ Then obviously $s_1,\cdots,s_n \rightarrow z_1.$ Therefore, all integrals in $[s_1,s_2]$ and their derivatives with respect to $t$ tends to zero. Let us consider the continuity of $g$ when $t\to t_1$.
+%$$\lim_{t\rightarrow t_1^{-}} \frac{{\partial \underline{g}  }}{{\partial t  }} =\lim_{t\rightarrow t_1^{-}} \frac{{\partial \underline{f} }}{{\partial t}} + \frac{\partial }{{\partial t}}
+% \int_0^t \frac{(t-\tau(s))^{2\iota+1}h(t,s)\underline{g}(s,r)}{(t-s)^\alpha}ds $$
+% On the other hand we note that the extremum $z_1$ can be end point of interval which in this case the sign  does not change or  approximating  to $t_1^+,$ the set $A_t$ reduce to two elements $s_1$ and $s_2$ which both are also tend to $z_1.$
+% \begin{equation}
+%\begin{split}
+%\lim_{t\rightarrow t_1^{+}} \frac{{\partial \underline{g}  }}{{\partial t  }} =\lim_{t\rightarrow t_1^{+}} \frac{{\partial \underline{f} }}{{\partial t}}
+% &+ \frac{\partial }{{\partial t}}
+% \int_0^{s_1} \frac{(t-\tau(s))^{2\iota+1}h(t,s)\underline{g}(s,r)}{(t-s)^\alpha}ds\\
+% &+ \frac{\partial }{{\partial t}}
+% \int_{s_1}^{s_2} \frac{(t-\tau(s))^{2\iota+1}h(t,s)\overline{g}(s,r)}{(t-s)^\alpha}ds \\
+% &+ \frac{\partial }{{\partial t}}
+% \int_{s_2}^t \frac{(t-\tau(s))^{2\iota+1}h(t,s)\underline{g}(s,r)}{(t-s)^\alpha}ds
+%\end{split}
+%\end{equation}
+%But, the second equation which may contain irregularity term tends to zero as $t\rightarrow t_1,$ since $s_1,s_2\rightarrow z_1.$ and therefore, we have
+%\begin{equation*}
+% \lim_{t\rightarrow t_1^{+}} \frac{{\partial \underline{g}  }}{{\partial t  }} =\lim_{t\rightarrow t_1^{+}} \frac{{\partial \underline{f} }}{{\partial t}}
+%+ \frac{\partial }{{\partial t}}
+%\int_0^{t} \frac{(t-\tau(s))^{2\iota+1}h(t,s)\underline{g}(s,r)}{(t-s)^\alpha}ds
+%\end{equation*}
+%and hence
+%$$ \lim_{t\rightarrow t_1^{-}} \frac{{\partial \underline{g}  }}{{\partial t  }}=\lim_{t\rightarrow t_1^{+}} \frac{{\partial \underline{g}  }}{{\partial t  }}  $$
+%On $t_2$ and other extrema points, similarly, if there exist  irregular integrals, they tend to zero. This provide an unconditional regularity for this type of kernels.
+%\begin{itemize}
+%	\item Case (iv)
+%\end{itemize}
+%Suppose $A:=\{t\in[0,T]:\ S(t)=0, \ S(t)=t\}$ is finite and let $t_i, i=1,\cdots \mathbb{N}$ are all elements of $A,$ and sorted increasingly (see Figure \ref{Fig0}(d)).  Without lose of generality, we suppose
+%$S(0)>0$ and therefore we have
+%$$
+% \frac{\partial \underline{g}}{\partial t} = \frac{\partial \underline{f}}{\partial t}+\frac{\partial }{\partial t}
+%\left\{ \begin{array}{ll}
+% \int_{0}^{t} \frac{(s-S(t))^{2\iota+1}h(t,s)\overline{g}(s,r)}{(t-s)^\alpha}ds, & t\in [t_0,t_1],\\
+%\int_{0}^{S(t)} \frac{(s-S(t))^{2\iota+1}h(t,s)\overline{g}(s,r)}{(t-s)^\alpha}ds & t\in [t_1,t_2],\\
+%+  \int_{S(t)}^{t} \frac{(s-S(t))^{2\iota+1}h(t,s)\underline{g}(s,r)}{(t-s)^\alpha}ds, \\
+% \int_{0}^{t} \frac{(s-S(t))^{2\iota+1}h(t,s)\overline{g}(s,r)}{(t-s)^\alpha}ds, & t\in [t_2,t_3], \\
+% \int_{S(t)}^{s} \frac{(s-S(t))^{2\iota+1}h(t,s)\overline{g}(s,r)}{(t-s)^\alpha}ds & t\in [t_3,t_4],\\
+% + \int_{0}^{t} \frac{(s-S(t))^{2\iota+1}h(t,s)\underline{g}(s,r)}{(t-s)^\alpha}ds, \\
+%\vdots &\vdots
+% \end{array} \right.$$
+%Therefore, we must study the regularity on $t_1,\cdots,t_n.$ We consider $t_1$, others are similar.
+% $$
+% {\lim }_{t \to t_1^- } \frac{\partial \underline {g}}{\partial t} = {\lim }_{t \to t_1^- } \frac{\partial \underline {f}}{\partial t} + {\lim }_{t \to t_1^- } \frac{\partial}{\partial t} (t^{1-\alpha})\int_{0}^{1}\frac{(tz-S(t))^{2\iota+1}h(t,tz)\overline{g}(tz,r)}{{(1-z)}^\alpha}dz$$
+
+%\begin{equation*}
+%\begin{split}
+%{\lim }_{t \to t_1^+ } \frac{\partial \underline {g}}{\partial t} = {\lim }_{t \to t_1^+ } \frac{\partial \underline {f}}{\partial t} + {\lim }_{t \to t_1^+ } \frac{\partial}{\partial t} \Bigg(t^{1-\alpha}\int_{0}^{1}\frac{(tz-S(t))^{2\iota+1}h(t,tz)\overline{g}(tz,r)}{{(1-z)}^\alpha}dz  \\
+%+ t^{1-\alpha}\int_{\frac{S(t)}{t}}^{1} \frac{(tz-S(t))^{2\iota+1}h(t,tz)\underline {g}(tz,r)}{(1-z)^\alpha}dz\Bigg),
+%\end{split}
+%\end{equation*}
+%The second integral tends to zero, since
+% $t \to t_1^{+},$ $S(t)\to t_1^{+}$ and $\frac{S(t)}{t}\to 1.$
+% Hence,
+%$${\lim }_{t \to t_1^+ } \frac{\partial \underline {g}}{\partial t}= {\lim }_{t \to t_1^- } \frac{\partial \underline {g}}{\partial t} \\
+%  $$
+%Similarly, with no extra conditions
+%$${\lim }_{t \to t_1^+ } \frac{\partial^2 \underline {g}}{\partial t^2}= {\lim }_{t \to t_1^- } \frac{\partial^2 \underline {g}}{\partial t^2} \\
+%  $$
+%  holds.
+%\color{black}
+We state first the smoothness result for a system of Volterra integral equations which follows directly from the results for Fredholm equations.
+\begin{pro}\label{mainregulrity}
+	Let  
+	$K_+, K_- \in S^{m,\alpha}(D_d)  \cap \mathcal{C}^{p-1}(D_T)$ where $m, p\in\mathbb{N}, p\leq m, \alpha\in \mathbb{R}, \alpha<1.$ Then $\mathcal{K}:(\mathcal{C}^{m, \alpha, p}(\mathcal{G}_d))^2 \to (\mathcal{C}^{m, \alpha, p}(\mathcal{G}_d))^2$ is compact and equation (\ref{19}) has a unique solution in $(\mathcal{C}^{m, \alpha, p}(\mathcal{G}_d))^2.$
+\end{pro}
+\begin{proof}
+	It follows from Theorem 9, 10 of \cite{Pedasreg}, if we extend kernel by zero above the diagonal. We can extend the results for the system of equations  since the operators are compact and uniqueness follows from Theorem \ref{unique thm}.
+\end{proof}
+
+For Volterra integral equation we can actually prove a stronger result. Solutions of Fredholm integral equations generally have singularities at both ends of the interval $(0,T)$ and at both sides of $d$. On the other hand, solutions of Volterra integral equations do not have singularities at $T$ and when approaching $d$ from left.
+Therefore we define $\mathcal{C}^{m,\alpha,p}_d(0,T]$
+similarly to the space $\mathcal{C}^{m, \alpha, p}(\mathcal{G}_d)$, but functions in this space don't have singularity when approaching $d,T$ from left side.
+We denote by $\mathcal{C}^{m,\alpha,p}_d(0,T]$ the Banach space of functions $u\in \mathcal{C}^m((0,T]\setminus\{d\})\cap \mathcal{C}^p(0,T]$ such that
+\begin{multline}\label{normvolterra}
+\|u\|_{d,m,\alpha, p}=\sum_{j=0}^m \sup _{t \in \mathcal{G}_d } e(t) \omega_ {j+\alpha-1}(t)|u^{(j)}(t)| + \\
+\sum _{j=0}^m \sup _{t \in \mathcal{G}_d} (1-e(t)) \omega_{j+\alpha-1-p}(t-d) |u^{(j)}(t)|<\infty,
+\end{multline}
+where $\omega$ is defined in (\ref{weight}).
+\begin{thm}\label{mainregulrityvolterra}
+	Let  the assumption of Proposition \ref{mainregulrity} be fulfilled. Then the equation  (\ref{SFuzzy1}) has a unique solution in $(\mathcal{C}_d^{m,\alpha,p}(0,T])^2.$
+\end{thm}
+\begin{proof}
+	Without loss of generality let us assume that the sign of kernel is positive in  regions I and III and negative in II as it shown in Figure \ref{WS}.
+	\begin{figure}[h!]
+		% Requires \usepackage{graphicx}		\centering
+		\includegraphics[width=6cm]{ws2}\\
+		\caption{Regions of positivity and negativity of the kernel $K$. }\label{WS}
+	\end{figure}
+	The other cases  are similar and we  skip them. Let $r$ be fixed and  denote  $u(s)=g_1(s,r)$, $v(s)=g_2(s,r)$. We can write the first component  of  $\mathcal{K}G$ as follows:
+	\begin{equation}\label{reg2}
+	\left\{ \begin{array}{l} \displaystyle \int_{0}^{t}({K_+(t,s)}  u(s) ds, \ \ t\leq d\\
+	\\
+	\displaystyle  \int_{0}^{d}{K_-(t,s)}v(s) ds+\int_{d}^{t} {K_+(t,s)} u(s) ds, \ \ t>d.
+	\end{array} \right. \end{equation}
+	Here $\int_{0}^{d}{K_-(t,s)}v(s) ds$ is a Fredholm integral  where the kernel has singular point outside the integration interval. The other integral operators in (\ref{reg2}) are Volterra integral operators.
+	
+	For $t\leq d$  %$ \int_{0}^{t}({K_+(t,s)}  u(s) ds$ where $t\to d^-$ in  (\ref{reg2}),
+	we have Volterra integral equation where  the kernel  doesn't  change the sign. Therefore, we can use the smoothness  result of Theorem \ref{smooth} to conclude that the solution does not have a singularity as $t\to d^-$. In second part where $t>d$ and when $t \to d^+$,  
+	the singularity of the solution is described in Proposition \ref{mainregulrity}. For $t\to T^-$,  take $\varepsilon>0$ such that $d<T-\varepsilon$. Then ${K_-} \in \mathcal{C}^m([T-\varepsilon,T]\times [0,d])$ and $v \in \mathcal{C}^{m,\alpha}(0,d]$. Thus we can differentiate the integral  $\int_0^d K_-(t,s)v(s)ds$    $m$ times under the integral sign and it belongs to %$\int_0^d K_-(t,s)v(s)ds \in
+	$\mathcal{C}^{m}[T-\varepsilon,T]$.  Note that when we are solving the integral equation in $(d,T]$ we can consider the integral $\int_d^t K_-(t,s)v(s)ds$ as given.
+	So  in $[T-\varepsilon,T]$ we have Volterra integral equation for $u$ where the source function has no singularity at $T$. Hence we can use the result of Theorem \ref{unique thm}, which implies that solution doesn't have singularity at $T$. Consequently  the solution is in $(\mathcal{C}_d^{m,\alpha,p}(0,T])^2.$ 
+\end{proof}
+
+
+
+\section{Fuzziness of the exact solution}
+Fuzziness of the exact solution is proved for integral equations with continuous kernels \cite{park1995}. The idea of proof is similar in weakly singular case.
+\begin{thm}     \label{fuzzy exact}
+	Let $K\in S^{m,\alpha}$ with $m\in \mathbb{N}_0$ and $\alpha>1$. Let $f$ be a fuzzy function such that $\underline{f},\overline{f} \in C[0,T]$. Assume in addition that $\underline{f},\overline{f}$ are continuous with respect to $r$. Then the solution $G=[\underline{g},\overline{g}]$ of \eqref{19} is a fuzzy function.
+	%Assume that  the components of $F$ are continuous with respect to $t$ and $r.$ Let the   components of $F$ compose a fuzzy function. Then, the components of $G$ also compose a fuzzy function.
+\end{thm}
+\begin{proof}
+	We use in the proof the equation (\ref{SFuzzy1}) as  the operator form of \eqref{19}.
+	It is well-known that if $G$ is a  fuzzy function then  $\mathcal{K}G$ is a  fuzzy  function. Also, the components of $\mathcal{K}G$ inherit  the  continuity of $G$ with respect to their variables. %Since $F$ is continuous in $[0, T] \times [0,1]$, it is also uniformly continuous and $(I-\mathcal{K})$ is invertible in $(\mathcal{C}[0,T])^2$. Therefore, $G$ is continuous with respect to $r$.\\
+	We prove that $G=[g_1,g_2]^T$ satisfies the conditions (1)-(3) of Theorem \ref{recipNB}.
+	By using the recursion formula \begin{equation}\label{S31}
+	G_0=F,\quad G_n=F+\mathcal{K} G_{n-1},\ n=1,2,\ldots
+	\end{equation}
+	and by standard argument for Volterra equation one can say $G_n$ converges uniformly to the solution $G=[g_1,g_2]^T$. Hence $G$ is continuous both with respect to $t$ and $r$.
+	%By assumptions  the components of $F$ are continuous with respect to $r$ and  by Equation \eqref{S31}, the components of $G_n$  inherit the property of continuity with respect to $r.$ On the other hand $F$ is continuous in $(\mathcal{C}[0,T])^2$ and $I-\mathcal{K}$ is invertible, therefore $G$ is continuous. Now, we prove $g_1$ and $g_2$ are monotonically increasing and decreasing functions, respectively.
+	Let $ r_1<r_2$ be two arbitrary real numbers in $[0,1].$ The components of $G_n=[g_{n1},g_{n2}]^T$ compose  fuzzy function $G_n=[g_{n1}, g_{n2}]^T$, hence
+	$$g_{n1}(t,r_1)-g_{n1}(t,r_2)\leq 0$$
+	for each $t\in [0,T].$ 
+	Now, for fixed $t$ we can take the limit as $n\to \infty$ to get
+	%Since, $g_{n1}\rightarrow g_1,$ as $N\rightarrow \infty,$ (point-wise with respect to $r$), for each $\epsilon>0,$ there exist
+	%$N_1\in\mathbb{N}$ and $N_2\in\mathbb{N}$ such that for every $n>N_1$
+	%$$-\frac{\epsilon}{2}\leq g_{1}(t,r_1)-g_{n1}(t,r_1)\leq \frac{\epsilon}{2}$$
+	%and for every $n>N_2$
+	%$$-\frac{\epsilon}{2}\leq g_{n1}(t,r_2)-g_{1}(t,r_2)\leq \frac{\epsilon}{2}.$$
+	%Let $n>\max\{N_1,N2\}.$  Then, we have
+	%\begin{equation}
+	%\lim _{n \to \infty}(g_{n1}(t,r_1)-g_{n1}(t,r_2))\leq 0
+	%\end{equation}
+	$g_1(t,r_1)\leq g_1(t,r_2)$.
+	Therefore $g_1$ is a monotonically  increasing function with respect to $r.$ Similarly, $g_2$ is  a monotonically  decreasing function with respect to $r$ and
+	$g_1(t,r)\leq g_2(t,r)$  for $(t,r)\in [0,T]\times [0,1]$
+	which proves the fuzziness of the vector function $G.$
+\end{proof}
+
+\section*{Conclusion}
+In this paper, we investigated a fuzzy Volterra integral equation with a weakly singular kernel.  The existence, regularity and the fuzziness  of the exact solution are studied. In future work we will focus on numerical   methods on discontinuous piecewise  polynomial space in order to get the approximate solution. 
+
+\begin{thebibliography}{99}
+	\bibitem{Atkinson} K. Atkinson, W. Han, Theoretical numerical analysis, Springer 39, 2005.
+	\bibitem{Alijani2020}  Z. Alijani, U.  Kangro, Collocation method for fuzzy Volterra integral equations of the second kind, Mathematical Modelling and Analysis, 25(1)(2020), 146-166.
+	
+	%\bibitem{babolian2005} E. Babolian, H. Sadeghi Goghary and S. Abbasbandy, Numerical solution of linear Fredholm
+	%fuzzy integral equations of the second kind
+	%by Adomian method, Applied Mathematics and Computation, 161 (2005) 733-744.	
+	%\bibitem{baker2000} C. T. H. Baker, A perspective on the numerical treatment of Volterra equations, J. Comput. Appl. Math.,125 (2000) 217-249.
+	%\bibitem{bede2004}
+	%B. Bede SG. Gal, Quadrature rules for integral of fuzzy number-valued functions. Fuzzy Sets and System, 145 (2004) 359-380.
+	\bibitem{bede}
+	B. Bede, Mathematics of Fuzzy Sets and Fuzzy Logic, volume 295 of Studies in
+	Fuzziness and Soft Computing.
+	\bibitem{Moufak}
+	M. Benchohra, M., M. A. Darwish, Existence and uniqueness theorem for fuzzy integral equation of fractional order. Communications in Applied Analysis, 12(1) (2008), 13-22.
+	%\bibitem{bica}
+	%A. M. Bica, Error estimation in the approximation of the solution of nonlinear fuzzy Ferdholm integral equation. Inf.Sci. 178 (2008) 1279-1292.
+	\bibitem{Brunner} H. Brunner, Volterra integral equations. An introduction to theory and applications. Cambridge Monographs on Applied and Computational Mathematics,  Cambridge University Press, 2017.
+	\bibitem{brunner2004collocation}
+	H. Brunner, Collocation methods for Volterra integral and related functional differential equations, Cambridge University Press, 2004.
+	\bibitem{Brunner99}
+	H. Brunner, A. Pedas, G. Vainikko,  The piecewise polynomial collocation methods for nonlinear Weakly Singular  Volterra equations, Mathematics of Computing, 68 (1999) 1079-1095.
+	\bibitem{BrunnerPedasVainikko} H. Brunner, A. Pedas, G. Vainikko,  Piecewise polynomial collocation methods for linear Volterra integro-differential equations with weakly singular kernels, SIAM Journal on Numerical Analysis, 39 (2001) 957-982.
+	% \bibitem{Chawla1968} M. M. Chawla,  Error estimates for the Clenshaw-Curtis quadrature. Mathematics of Computation, 22 (1986) 651-656.
+	%\bibitem{H. Brunner} H. Brunner, The Numerical Solution of Weakly Singular Volterra Integral Equations By Collocation on Graded Meshes,  Mathematics of computation,
+	%172 (1985), 417-437.
+	\bibitem{Diamond}
+	P. Diamond, P. Kloeden, Metric topology of fuzzy numbers and fuzzy analysis. In: Dubois, D., Prade, H., et al. (eds.) Handbook Fuzzy Sets Ser., vol. 7,
+	pp. 583–641. Kluwer Academic Publishers, Dordrecht (2000).  
+	\bibitem{dubois1978}
+	D. Dubois, H. Prade, Operations on fuzzy numbers, D. Dubois, H. Prade, Operations on fuzzy numbers, International Journal of Systems Science, 9 (1978) 613-626.
+	\bibitem{fridman1989} M. Fridman, A. Kandel, Solution to the fuzzy integral equations with arbitrary kernels,  International Journal of Approximate Reasoning,  20 (1989) 249-262.
+	\bibitem{fridman1999} M. Fridman, A. Kandel, Numerical solution of fuzzy differential and integral equations, Fuzzy Sets and System, 106 (1999) 35-48.
+	\bibitem{goetschel1986}
+	R. Goetschel and W. Vaxman, Elementary calculus. Fuzzy Sets and Systems, 18(1986) 31-43.
+	
+	\bibitem{kaleva1987}
+	O. Kaleva, Fuzzy differential equations. Fuzzy Sets and Systems, 24 (1987) 301-317.
+	\bibitem{Kolk 2013}
+	M. Kolk, A. Pedas, Numerical solution of Volterra integral equations with singularities. Frontiers of Mathematics in China, 8 (2)(2013) 239-259.
+	\bibitem{Kolk2009}
+	M. Kolk, A. Pedas, G. Vainikko, High order methods for Volterra integral equations with general weak singularities. Numerical Functional Analysis and Optimization,  30 (2009)1002-1024.
+	\bibitem{Kress1989} R. Kress, Linear integral equations. Applied Mathematical Sciences, Springer, 2014.
+	
+	%\bibitem{Molabahrami} A. Molabahrami, A. Shidfar and A. Ghyasi, An analytical method for solving linear Fredholm fuzzy integral equations of the second kind. Computers $\&$ Mathematics with Applications, 61(9)(2011) 2754-2761.
+	%.Y. Park, S.Y. Lee, J.U. Jeong, The approximate solutions of fuzzy functional integral equations, Fuzzy Sets Syst. 110 (2000) 79-90.
+	
+	%\bibitem{linz1985}
+	% P. Linz, Analytical and numerical methods for Volterra equations, SIAM, Philadelphia, PA, 1985.
+	%\bibitem{Mason}  J. C. Mason and D. C.  Handscomb,  Chebyshev polynomials.  CRC Press,  2002.
+	%\bibitem{matloka1897} M. Matloka, On fuzzy integrals. Proc. 2nd Polish Symp. on Interval and Fuzzy Mathematics, Politechnika Poznansk (1987) 167-170.
+	\bibitem{Mittag1905}
+	G. Mittag-Leffler, Sur la representation analytiqie d’une fonction monogene cinquieme note. Acta Math. 1905, 29(1), 10-181.	
+	
+	\bibitem{Nanda}
+	S. Nanda, On integration of fuzzy mappings, Fuzzy Sets and Systems 32 (1989), 95-101.
+	\bibitem{Ortega} 
+	J M. Ortega, Numerical analysis: A second course,  New York, Academic press, 1972.
+	\bibitem{Park1995}	J.Y. Park, Y.C. Kwan, J.V. Jeong, Existence of solutions of fuzzy integral equations in Banach spaces, Fuzzy Sets Systems, 72 (1995) 373-378.
+	\bibitem{Pedas Vainikko}
+	A. Pedas, G. Vainikko, Superconvergence of piecewise polynomial collocation for nonlinear weakly singular integral equations, Journal of Integral Equations and Applications, 9(1997), 379-406.
+	\bibitem{Pedasreg}
+	A. Pedas, G. Vainikko, On the regularity of solutions to integral equations with nonsmooth kernel on union of open intervals, Journal of Computational and Applied Mathematics, 229(2009) 440-451.
+		\bibitem{park1995}
+	J. Y. Park, Y. C. Kwun, J. U. Jeong, Existence of solutions of fuzzy integral equations in Banach spaces, Fuzzy Sets and Systems, 72 (1995) 373-378.
+	\bibitem{Vainikko06} G. Vainikko, Multidimensional weakly singular integral equations, Springer, 1993.
+	\bibitem{lecturenote}
+	G. Vainikko, Weakly singular integral equations,
+	Lecture notes, HUT, UT, 2006-2007, http://kodu.ut.ee/~gen/WSIElecturesSIAM.pdf.
+	\bibitem{zade1965}
+	L. A. Zadeh, Fuzzy sets, Information and control, 8 (1965) 338-353.
+	\bibitem{Zhu} L. Zhu, Y. Wang, Numerical solutions of Volterra integral equation with weakly singular kernel using SCW method, Applied Mathematics and Computation, 260 (2015) 63-70.
+	
+\end{thebibliography}
+\end{document}
+% ----------------------------------
